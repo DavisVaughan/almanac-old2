@@ -4,36 +4,33 @@ init_context <- function(x) {
   x_lt <- as_posixlt(x)
 
   .data <- list(
-    date = x,
-    year = year(x_lt),
-    month = month(x_lt),
-    day = day(x_lt),
-    yday = yday(x_lt),
-    mday = mday(x_lt),
-    wday = wday(x_lt, week_start = 7L),
-    qday = qday(x_lt),
-    size = vec_size(x)
+    date = expr(x),
+    year = expr(year(x_lt)),
+    month = expr(month(x_lt)),
+    day = expr(day(x_lt)),
+    yday = expr(yday(x_lt)),
+    mday = expr(mday(x_lt)),
+    wday = expr(wday(x_lt, week_start = 7L)),
+    qday = expr(qday(x_lt)),
+    size = expr(vec_size(x))
   )
 
-  env_bind(context_env, !!!.data)
+  env_bind_lazy(context_env, !!!.data)
 
   invisible(x)
 }
 
 reset_context <- function() {
-  .data <- list(
-    date = NULL,
-    year = NULL,
-    month = NULL,
-    day = NULL,
-    yday = NULL,
-    mday = NULL,
-    wday = NULL,
-    qday = NULL,
-    size = NULL
-  )
-
-  env_bind(context_env, !!!.data)
+  # Avoid `env_bind()` triggering the lazy bindings
+  context_env$date <- NULL
+  context_env$year <- NULL
+  context_env$month <- NULL
+  context_env$day <- NULL
+  context_env$yday <- NULL
+  context_env$mday <- NULL
+  context_env$wday <- NULL
+  context_env$qday <- NULL
+  context_env$size <- NULL
 
   invisible()
 }
