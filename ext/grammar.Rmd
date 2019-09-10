@@ -83,6 +83,35 @@ _Maybe_ these
 - Between two epiyears
   - `between_epiyears(<int>, <int>)`
 
+- Between two quarters
+  - `between_quarters(<int>, <int>)`
+
+- Between two months in a year
+  - `between_months(<int/chr>, <int/chr>)`
+  - `between_ymonths(<int/chr>, <int/chr>)`
+  - Allow normalizing
+- Between two months in a quarter
+  - `between_qmonths(<int>, <int>)`
+
+- Between two weeks in a year
+  - `between_weeks(<int>, <int>)`
+  - `between_yweeks(<int>, <int>, start = TRUE/FALSE)`
+- Between two weeks in a quarter
+  - `between_qweeks(<int>, <int>, start = TRUE/FALSE)`
+- Between two weeks in a month
+  - `between_mweeks(<int>, <int>, start = TRUE/FALSE)`
+
+- Between two days in a year
+  - `between_days(<int>, <int>)`
+  - `between_ydays((<int>, <int>)`
+- Between two days in a quarter
+  - `between_qdays(<int>, <int>)`
+- Between two days in a month
+  - `between_mdays(<int>, <int>)`
+- Between two days in a week
+  - `between_wdays(<int>, <int>)`
+  - Allow normalizing
+
 ## N-th functions
 
 - Hopefully not required, and replaceable with `on_wday()` and `on_mweek()`
@@ -95,3 +124,15 @@ _Maybe_ these
 
 - "On the first Thursday of the quarter"
   - `on_wday("Thursday") %i% on_qweek(1)`
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
