@@ -36,20 +36,32 @@ print.schedule <- function(x, ...) {
 }
 
 #' @export
-sched_is_event <- function(x, schedule) {
+sched_includes <- function(x, schedule) {
   x <- vec_cast(x, new_date())
   assert_schedule(schedule)
 
   init_context(x)
   on.exit(reset_context(), add = TRUE)
 
-  sched_is_event_impl(schedule)
+  sched_includes_impl(schedule)
 }
 
-sched_is_event_impl <- function(schedule) {
+sched_includes_impl <- function(schedule) {
   events <- schedule$events
   event <- reduce(events, event_union)
   event_is_impl(event)
+}
+
+#' @export
+sched_generate <- function(from, to, schedule) {
+  assert_schedule(schedule)
+
+  from <- vec_cast(from, new_date(), x_arg = "from")
+  to <- vec_cast(to, new_date(), x_arg = "to")
+
+  dates <- seq(from, to, by = 1)
+
+  dates[sched_includes(dates, schedule)]
 }
 
 # ------------------------------------------------------------------------------
