@@ -2,6 +2,10 @@
 on_quarter <- function(x) {
   x <- vec_cast(x, integer())
 
+  if (any(!vec_in(x, 1:4))) {
+    glubort("`x` must be a valid quarter, in `1:4`.")
+  }
+
   test <- function() {
     vec_in(current_quarter(), x)
   }
