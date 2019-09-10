@@ -64,6 +64,35 @@ sched_generate <- function(from, to, schedule) {
   dates[sched_includes(dates, schedule)]
 }
 
+#' @export
+sched_events <- function(x, schedule) {
+  x <- vec_cast(x, new_date())
+  assert_schedule(schedule)
+
+  events <- schedule$events
+
+  n_events <- length(events)
+  n_x <- vec_size(x)
+
+  init_context(x)
+  on.exit(reset_context(), add = TRUE)
+
+  lst_of_results <- map(events, event_is_impl)
+
+  out <- vec_init(list(), n_x)
+  locs <- vec_init(logical(), n_events)
+
+  # Invert the `lst_of_results` to construct `locs` to slice `events` with
+  for (i in seq_len(n_x)) {
+    for (j in seq_len(n_events)) {
+      locs[[j]] <- lst_of_results[[j]][[i]]
+    }
+    out[[i]] <- events[locs]
+  }
+
+  out
+}
+
 # ------------------------------------------------------------------------------
 
 new_schedule <- function(events = list(), ..., class = character()) {

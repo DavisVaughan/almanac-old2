@@ -14,5 +14,6 @@
 #' @importFrom vctrs new_date
 #' @importFrom vctrs vec_match
 #' @importFrom vctrs vec_is
+#' @importFrom vctrs vec_init
 ## usethis namespace: end
 NULL
