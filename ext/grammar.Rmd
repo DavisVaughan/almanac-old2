@@ -76,8 +76,12 @@ _Maybe_ these
   
 ## Between functions
 
-- 
-
+- Between two years
+  - `between_years(<int>, <int>)`
+- Between two isoyears
+  - `between_isoyears(<int>, <int>)`
+- Between two epiyears
+  - `between_epiyears(<int>, <int>)`
 
 ## N-th functions
 

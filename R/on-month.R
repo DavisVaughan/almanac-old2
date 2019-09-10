@@ -1,4 +1,33 @@
 #' @export
+on_month <- function(x) {
+  on_ymonth(x)
+}
+
+#' @export
+on_ymonth <- function(x) {
+  x <- vec_cast(x, integer())
+
+  if (any(!vec_in(x, 1:12))) {
+    abort("`x` must be a valid month of the year, in `1:12`.")
+  }
+
+  test <- function() {
+    vec_in(current_ymonth(), x)
+  }
+
+  new_event(
+    description = glue("On month of year: {collapse_and_trim(x)}"),
+    test = test
+  )
+}
+
+ymonth <- function(x) {
+  month(x)
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
 on_qmonth <- function(x) {
   x <- vec_cast(x, integer())
 

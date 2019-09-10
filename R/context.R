@@ -12,7 +12,9 @@ init_context <- function(x) {
 
     semester = expr(semester(x_lt)),
 
-    month = expr(month(x_lt)),
+    quarter = expr(quarter(x_lt)),
+
+    ymonth = expr(ymonth(x_lt)),
     qmonth = expr(qmonth(x_lt)),
 
     yweek = expr(yweek(x_lt)),
@@ -47,7 +49,9 @@ reset_context <- function() {
 
   context_env$semester <- NULL
 
-  context_env$month <- NULL
+  context_env$quarter <- NULL
+
+  context_env$ymonth <- NULL
   context_env$qmonth <- NULL
 
   context_env$yweek <- NULL
@@ -93,8 +97,13 @@ current_semester <- function() {
 }
 
 
-current_month <- function() {
-  context_env[["month"]]
+current_quarter <- function() {
+  context_env[["quarter"]]
+}
+
+
+current_ymonth <- function() {
+  context_env[["ymonth"]]
 }
 
 current_qmonth <- function() {
