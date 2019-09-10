@@ -7,6 +7,10 @@ init_context <- function(x) {
     date = expr(x),
 
     year = expr(year(x_lt)),
+    isoyear = expr(isoyear(x_lt)),
+    epiyear = expr(epiyear(x_lt)),
+
+    semester = expr(semester(x_lt)),
 
     month = expr(month(x_lt)),
     qmonth = expr(qmonth(x_lt)),
@@ -38,6 +42,10 @@ reset_context <- function() {
   context_env$date <- NULL
 
   context_env$year <- NULL
+  context_env$isoyear <- NULL
+  context_env$epiyear <- NULL
+
+  context_env$semester <- NULL
 
   context_env$month <- NULL
   context_env$qmonth <- NULL
@@ -69,6 +77,19 @@ current_date <- function() {
 
 current_year <- function() {
   context_env[["year"]]
+}
+
+current_isoyear <- function() {
+  context_env[["isoyear"]]
+}
+
+current_epiyear <- function() {
+  context_env[["epiyear"]]
+}
+
+
+current_semester <- function() {
+  context_env[["semester"]]
 }
 
 
