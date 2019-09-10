@@ -17,7 +17,7 @@ on_ymonth <- function(x) {
   }
 
   new_event(
-    description = glue("On month of year: {collapse_and_trim(month_print()[x])}"),
+    description = glue("On month of the year: {collapse_and_trim(month_print()[x])}"),
     test = test
   )
 }
@@ -41,7 +41,7 @@ on_qmonth <- function(x) {
   }
 
   new_event(
-    description = glue("On month of quarter: {collapse_and_trim(x)}"),
+    description = glue("On month of the quarter: {collapse_and_trim(x)}"),
     test = test
   )
 }

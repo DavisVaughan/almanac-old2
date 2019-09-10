@@ -16,7 +16,7 @@ on_yday <- function(x) {
   }
 
   new_event(
-    description = glue("On day of year: {collapse_and_trim(x)}"),
+    description = glue("On day of the year: {collapse_and_trim(x)}"),
     test = test
   )
 }
@@ -32,7 +32,7 @@ on_qday <- function(x) {
   }
 
   new_event(
-    description = glue("On day of quarter: {collapse_and_trim(x)}"),
+    description = glue("On day of the quarter: {collapse_and_trim(x)}"),
     test = test
   )
 }
@@ -52,7 +52,7 @@ on_mday <- function(x) {
   }
 
   new_event(
-    description = glue("On day of month: {collapse_and_trim(x)}"),
+    description = glue("On day of the month: {collapse_and_trim(x)}"),
     test = test
   )
 }
@@ -69,7 +69,7 @@ on_wday <- function(x) {
   }
 
   new_event(
-    description = glue("On day of week: {collapse_and_trim(weekday_print()[x])}"),
+    description = glue("On day of the week: {collapse_and_trim(weekday_print()[x])}"),
     test = test
   )
 }
