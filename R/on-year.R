@@ -1,5 +1,5 @@
 #' @export
-in_year <- function(x) {
+on_year <- function(x) {
   x <- vec_cast(x, integer())
 
   test <- function() {
@@ -7,7 +7,7 @@ in_year <- function(x) {
   }
 
   new_event(
-    description = glue("In year: {collapse_and_trim(x)}"),
+    description = glue("On year: {collapse_and_trim(x)}"),
     test = test
   )
 }

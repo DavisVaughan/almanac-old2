@@ -1,0 +1,94 @@
+---
+title: "Grammar of schedules"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## On functions
+
+- On the year
+  - `on_year(<int>)`
+- On the iso year
+  - `on_isoyear(<int>)`
+- On the epi year
+  - `on_epiyear(<int>)`
+  
+- On the semester
+  - `on_semester_of_year(<int>)`
+  - `on_semester()`
+  - Restrict to 1:2
+  
+- On the quarter
+  - `on_quarter_of_year(<int>)`
+  - `on_quarter(fiscal_start = 1)`
+  - Restrict to 1:4
+  
+- On the month of the year
+  - `on_month_of_year(<int/chr>)`
+  - `on_month()`
+  - `on_ymonth()`
+  - Allow December / Dec / 12
+- On the month of the quarter
+  - `on_month_of_quarter(<int>)`
+  - `on_qmonth(<int>, from_last = FALSE/TRUE)`
+  
+- On the week of the year
+  - `on_week_of_year(<int>)`
+  - `on_week()`
+  - `on_yweek()`
+- On the week of the quarter
+  - `on_week_of_quarter(<int>)`
+  - `on_qweek(<int>, from_last = FALSE/TRUE)`
+- On the week of the month
+  - `on_week_of_month(<int>)`
+  - `on_mweek(<int>, from_last = FALSE/TRUE)`
+
+- On the day of the year
+  - `on_day_of_year(<int>)`
+  - `on_yday()`
+- On the day of the quarter
+  - `on_day_of_quarter(<int>)`
+  - `on_qday()`
+- On the day of the month
+  - `on_day_of_month(<int>)`
+  - `on_day()`
+  - `on_mday()`
+- On the day of the week
+  - `on_day_of_week(<int>)`
+  - `on_wday()`
+  
+_Maybe_ these
+
+- On hour of the day
+  - `on_hour_of_day(<int>)`
+  - `on_hour()`
+
+- On minute of the hour
+  - `on_minute_of_hour(<int>)`
+  - `on_minute()`
+  - `on_hminute()`
+- On minute of the day
+  - `on_minute_of_day()`
+  - `on_dminute()`
+  
+## Between functions
+
+- 
+
+
+## N-th functions
+
+- Hopefully not required, and replaceable with `on_wday()` and `on_mweek()`
+
+- On n-th day of the week in a given month
+  - `on_nth_wday_in_month()`
+  - Is this just `on_wday() %i% on_mweek()`?
+  
+- "On the second monday of the month"
+  - `on_wday("Monday") %i% on_mweek(2)`
+
+- "On the last Thursday of the month"
+  - `on_wday("Thursday") %i% on_mweek(1, from_last = TRUE)`
