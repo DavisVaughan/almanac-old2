@@ -12,8 +12,14 @@ on_yweek <- function(x, start = TRUE) {
     yweek_matches(x, start)
   }
 
+  if (start) {
+    desc <- "On week of the year: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On week from the end of the year: {collapse_and_trim(x)}"
+  }
+
   new_event(
-    description = glue("On week of year: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
 }
@@ -60,8 +66,14 @@ on_qweek <- function(x, start = TRUE) {
     qweek_matches(x, start)
   }
 
+  if (start) {
+    desc <- "On week of the quarter: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On week from the end of the quarter: {collapse_and_trim(x)}"
+  }
+
   new_event(
-    description = glue("On week of quarter: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
 }
@@ -112,8 +124,14 @@ on_mweek <- function(x, start = TRUE) {
     mweek_matches(x, start)
   }
 
+  if (start) {
+    desc <- "On week of the month: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On week from the end of the month: {collapse_and_trim(x)}"
+  }
+
   new_event(
-    description = glue("On week of month: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
 }
