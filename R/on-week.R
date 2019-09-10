@@ -28,7 +28,7 @@ yweek_impl <- function(x) {
 
 yweek_matches <- function(x, start) {
   if (start) {
-    vec_in(current_yweek_start(), x)
+    vec_in(current_yweek_from_start(), x)
   } else {
     vec_in(current_yweek_from_end(), x)
   }
@@ -39,7 +39,7 @@ current_yweek_from_end <- function() {
   yweek_impl(days_left_in_year + 1L)
 }
 
-current_yweek_start <- function() {
+current_yweek_from_start <- function() {
   current_yweek()
 }
 
@@ -68,7 +68,7 @@ on_qweek <- function(x, start = TRUE) {
 
 qweek_matches <- function(x, start) {
   if (start) {
-    vec_in(current_qweek_start(), x)
+    vec_in(current_qweek_from_start(), x)
   } else {
     vec_in(current_qweek_from_end(), x)
   }
@@ -79,7 +79,7 @@ current_qweek_from_end <- function() {
   qweek_impl(days_left_in_quarter + 1L)
 }
 
-current_qweek_start <- function() {
+current_qweek_from_start <- function() {
   current_qweek()
 }
 
@@ -120,7 +120,7 @@ on_mweek <- function(x, start = TRUE) {
 
 mweek_matches <- function(x, start) {
   if (start) {
-    vec_in(current_mweek_start(), x)
+    vec_in(current_mweek_from_start(), x)
   } else {
     vec_in(current_mweek_from_end(), x)
   }
@@ -140,6 +140,6 @@ current_mweek_from_end <- function() {
   mweek_impl(days_left_in_month + 1L)
 }
 
-current_mweek_start <- function() {
+current_mweek_from_start <- function() {
   current_mweek()
 }
