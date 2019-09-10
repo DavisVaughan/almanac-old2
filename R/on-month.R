@@ -5,6 +5,7 @@ on_month <- function(x) {
 
 #' @export
 on_ymonth <- function(x) {
+  x <- month_normalize(x)
   x <- vec_cast(x, integer())
 
   if (any(!vec_in(x, 1:12))) {
@@ -16,7 +17,7 @@ on_ymonth <- function(x) {
   }
 
   new_event(
-    description = glue("On month of year: {collapse_and_trim(x)}"),
+    description = glue("On month of year: {collapse_and_trim(month_print()[x])}"),
     test = test
   )
 }

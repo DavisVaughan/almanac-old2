@@ -52,6 +52,10 @@ month_int <- function() {
   )
 }
 
+month_print <- function() {
+  month.name
+}
+
 # ------------------------------------------------------------------------------
 
 wday_normalize <- function(x) {
@@ -106,11 +110,5 @@ weekday_int <- function() {
 
 weekday_print <- function() {
   c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-}
-
-# ------------------------------------------------------------------------------
-
-days_left_in_month <- function(x) {
-  days_in_month(x) - days(x)
 }
 
