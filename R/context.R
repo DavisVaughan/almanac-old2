@@ -11,6 +11,7 @@ init_context <- function(x) {
     month = expr(month(x_lt)),
     qmonth = expr(qmonth(x_lt)),
 
+    yweek = expr(yweek(x_lt)),
     qweek = expr(qweek(x_lt)),
     mweek = expr(mweek(x_lt)),
 
@@ -20,6 +21,7 @@ init_context <- function(x) {
     wday = expr(wday(x_lt, week_start = 7L)),
     qday = expr(qday(x_lt)),
 
+    days_in_year = expr(days_in_year(x_lt)),
     days_in_quarter = expr(days_in_quarter(x_lt)),
     days_in_month = expr(days_in_month(x_lt)),
 
@@ -40,6 +42,7 @@ reset_context <- function() {
   context_env$month <- NULL
   context_env$qmonth <- NULL
 
+  context_env$yweek <- NULL
   context_env$qweek <- NULL
   context_env$mweek <- NULL
 
@@ -49,6 +52,7 @@ reset_context <- function() {
   context_env$wday <- NULL
   context_env$qday <- NULL
 
+  context_env$days_in_year <- NULL
   context_env$days_in_quarter <- NULL
   context_env$days_in_month <- NULL
 
@@ -76,6 +80,9 @@ current_qmonth <- function() {
   context_env[["qmonth"]]
 }
 
+current_yweek <- function() {
+  context_env[["yweek"]]
+}
 
 current_qweek <- function() {
   context_env[["qweek"]]
@@ -106,6 +113,9 @@ current_qday <- function() {
   context_env[["qday"]]
 }
 
+current_days_in_year <- function() {
+  context_env[["days_in_year"]]
+}
 
 current_days_in_quarter <- function() {
   context_env[["days_in_quarter"]]

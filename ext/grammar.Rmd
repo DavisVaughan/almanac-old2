@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo = TRUE)
   - Allow December / Dec / 12
 - On the month of the quarter
   - `on_month_of_quarter(<int>)`
-  - `on_qmonth(<int>, from_last = FALSE/TRUE)`
+  - `on_qmonth(<int>)`
   
 - On the week of the year
   - `on_week_of_year(<int>)`
@@ -41,10 +41,10 @@ knitr::opts_chunk$set(echo = TRUE)
   - `on_yweek()`
 - On the week of the quarter
   - `on_week_of_quarter(<int>)`
-  - `on_qweek(<int>, from_last = FALSE/TRUE)`
+  - `on_qweek(<int>, start = FALSE/TRUE)`
 - On the week of the month
   - `on_week_of_month(<int>)`
-  - `on_mweek(<int>, from_last = FALSE/TRUE)`
+  - `on_mweek(<int>, start = FALSE/TRUE)`
 
 - On the day of the year
   - `on_day_of_year(<int>)`
@@ -82,13 +82,12 @@ _Maybe_ these
 ## N-th functions
 
 - Hopefully not required, and replaceable with `on_wday()` and `on_mweek()`
-
-- On n-th day of the week in a given month
-  - `on_nth_wday_in_month()`
-  - Is this just `on_wday() %i% on_mweek()`?
   
 - "On the second monday of the month"
   - `on_wday("Monday") %i% on_mweek(2)`
 
 - "On the last Thursday of the month"
-  - `on_wday("Thursday") %i% on_mweek(1, from_last = TRUE)`
+  - `on_wday("Thursday") %i% on_mweek(1, start = FALSE)`
+
+- "On the first Thursday of the quarter"
+  - `on_wday("Thursday") %i% on_qweek(1)`

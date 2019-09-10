@@ -1,10 +1,63 @@
 #' @export
-on_qweek <- function(x, from_start = TRUE) {
+on_week <- function(x, start = TRUE) {
+  on_yweek(x, start = start)
+}
+
+#' @export
+on_yweek <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
-  from_start <- vec_assert(from_start, logical(), 1L)
+  start <- vec_assert(start, logical(), 1L)
 
   test <- function() {
-    qweek_matches(x, from_start)
+    yweek_matches(x, start)
+  }
+
+  new_event(
+    description = glue("On week of year: {collapse_and_trim(x)}"),
+    test = test
+  )
+}
+
+yweek <- function(x) {
+  week(x)
+}
+
+yweek_impl <- function(x) {
+  (x - 1L) %/% 7L + 1L
+}
+
+yweek_matches <- function(x, start) {
+  if (start) {
+    vec_in(current_yweek_start(), x)
+  } else {
+    vec_in(current_yweek_from_end(), x)
+  }
+}
+
+current_yweek_from_end <- function() {
+  days_left_in_year <- current_days_in_year() - current_yday()
+  yweek_impl(days_left_in_year + 1L)
+}
+
+current_yweek_start <- function() {
+  current_yweek()
+}
+
+days_in_year <- function(x) {
+  n_days <- rep(365L, times = length(x))
+  n_days[leap_year(x)] <- 366L
+  n_days
+}
+
+# ------------------------------------------------------------------------------
+
+#' @export
+on_qweek <- function(x, start = TRUE) {
+  x <- vec_cast(x, integer())
+  start <- vec_assert(start, logical(), 1L)
+
+  test <- function() {
+    qweek_matches(x, start)
   }
 
   new_event(
@@ -13,9 +66,9 @@ on_qweek <- function(x, from_start = TRUE) {
   )
 }
 
-qweek_matches <- function(x, from_start) {
-  if (from_start) {
-    vec_in(current_qweek_from_start(), x)
+qweek_matches <- function(x, start) {
+  if (start) {
+    vec_in(current_qweek_start(), x)
   } else {
     vec_in(current_qweek_from_end(), x)
   }
@@ -26,7 +79,7 @@ current_qweek_from_end <- function() {
   qweek_impl(days_left_in_quarter + 1L)
 }
 
-current_qweek_from_start <- function() {
+current_qweek_start <- function() {
   current_qweek()
 }
 
@@ -51,12 +104,12 @@ days_in_quarter <- function(x) {
 # ------------------------------------------------------------------------------
 
 #' @export
-on_mweek <- function(x, from_start = TRUE) {
+on_mweek <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
-  from_start <- vec_assert(from_start, logical(), 1L)
+  start <- vec_assert(start, logical(), 1L)
 
   test <- function() {
-    mweek_matches(x, from_start)
+    mweek_matches(x, start)
   }
 
   new_event(
@@ -65,9 +118,9 @@ on_mweek <- function(x, from_start = TRUE) {
   )
 }
 
-mweek_matches <- function(x, from_start) {
-  if (from_start) {
-    vec_in(current_mweek_from_start(), x)
+mweek_matches <- function(x, start) {
+  if (start) {
+    vec_in(current_mweek_start(), x)
   } else {
     vec_in(current_mweek_from_end(), x)
   }
@@ -87,6 +140,6 @@ current_mweek_from_end <- function() {
   mweek_impl(days_left_in_month + 1L)
 }
 
-current_mweek_from_start <- function() {
+current_mweek_start <- function() {
   current_mweek()
 }
