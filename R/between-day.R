@@ -5,27 +5,18 @@ between_days <- function(x, y) {
 
 #' @export
 between_ydays <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:366)) {
-    glubort("`x` ({x}) must be a valid day of the year, in `1:366`.")
-  }
-
-  if (!vec_in(x, 1:366)) {
-    glubort("`y` ({y}) must be a valid day of the year, in `1:366`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_yday(x, inclusive = TRUE)
+  before <- before_yday(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_yday(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -38,19 +29,18 @@ between_ydays <- function(x, y) {
 
 #' @export
 between_qdays <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_qday(x, inclusive = TRUE)
+  before <- before_qday(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_qday(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -63,27 +53,18 @@ between_qdays <- function(x, y) {
 
 #' @export
 between_mdays <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:31)) {
-    glubort("`x` ({x}) must be a valid day of the month, in `1:31`.")
-  }
-
-  if (!vec_in(y, 1:31)) {
-    glubort("`y` ({y}) must be a valid day of the month, in `1:31`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_mday(x, inclusive = TRUE)
+  before <- before_mday(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_mday(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -99,27 +80,18 @@ between_wdays <- function(x, y) {
   x <- wday_normalize(x)
   y <- wday_normalize(y)
 
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:7)) {
-    glubort("`x` ({x}) must be a valid day of the week, in `1:7`.")
-  }
-
-  if (!vec_in(y, 1:7)) {
-    glubort("`y` ({y}) must be a valid day of the week, in `1:7`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_wday(x, inclusive = TRUE)
+  before <- before_wday(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_wday(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(

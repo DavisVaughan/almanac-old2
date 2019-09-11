@@ -1,18 +1,17 @@
 #' @export
 between_years <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_year(x, inclusive = TRUE)
+  before <- before_year(y, inclusive = TRUE)
+
   test <- function(env) {
-    year <- current_year(env)
-    x <= year & y >= year
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -25,19 +24,18 @@ between_years <- function(x, y) {
 
 #' @export
 between_isoyears <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_isoyear(x, inclusive = TRUE)
+  before <- before_isoyear(y, inclusive = TRUE)
+
   test <- function(env) {
-    year <- current_isoyear(env)
-    x <= year & y >= year
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -50,19 +48,18 @@ between_isoyears <- function(x, y) {
 
 #' @export
 between_epiyears <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_epiyear(x, inclusive = TRUE)
+  before <- before_epiyear(y, inclusive = TRUE)
+
   test <- function(env) {
-    year <- current_epiyear(env)
-    x <= year & y >= year
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(

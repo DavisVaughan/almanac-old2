@@ -5,32 +5,18 @@ between_weeks <- function(x, y) {
 
 #' @export
 between_yweeks <- function(x, y, start = TRUE) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:52)) {
-    glubort("`x` ({x}) must be a valid week of the year, in `1:52`.")
-  }
-
-  if (!vec_in(y, 1:52)) {
-    glubort("`y` ({y}) must be a valid week of the year, in `1:52`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function(env) {
-    if (start) {
-      value <- current_yweek_from_start(env)
-    } else {
-      value <- current_yweek_from_end(env)
-    }
+  after <- after_yweek(x, inclusive = TRUE, start = start)
+  before <- before_yweek(y, inclusive = TRUE, start = start)
 
-    x <= value & y >= value
+  test <- function(env) {
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   if (start) {
@@ -49,24 +35,18 @@ between_yweeks <- function(x, y, start = TRUE) {
 
 #' @export
 between_qweeks <- function(x, y, start = TRUE) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function(env) {
-    if (start) {
-      value <- current_qweek_from_start(env)
-    } else {
-      value <- current_qweek_from_end(env)
-    }
+  after <- after_qweek(x, inclusive = TRUE, start = start)
+  before <- before_qweek(y, inclusive = TRUE, start = start)
 
-    x <= value & y >= value
+  test <- function(env) {
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   if (start) {
@@ -85,32 +65,18 @@ between_qweeks <- function(x, y, start = TRUE) {
 
 #' @export
 between_mweeks <- function(x, y, start = TRUE) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:5)) {
-    glubort("`x` ({x}) must be a valid week of the month, in `1:5`.")
-  }
-
-  if (!vec_in(x, 1:5)) {
-    glubort("`y` ({y}) must be a valid week of the month, in `1:5`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function(env) {
-    if (start) {
-      value <- current_mweek_from_start(env)
-    } else {
-      value <- current_mweek_from_end(env)
-    }
+  after <- after_mweek(x, inclusive = TRUE, start = start)
+  before <- before_mweek(y, inclusive = TRUE, start = start)
 
-    x <= value & y >= value
+  test <- function(env) {
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   if (start) {

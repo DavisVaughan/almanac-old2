@@ -8,27 +8,18 @@ between_ymonths <- function(x, y) {
   x <- month_normalize(x)
   y <- month_normalize(y)
 
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:12)) {
-    glubort("`x` ({x}) must be a valid month of the year, in `1:12`.")
-  }
-
-  if (!vec_in(y, 1:12)) {
-    glubort("`y` ({y}) must be a valid month of the year, in `1:12`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_ymonth(x, inclusive = TRUE)
+  before <- before_ymonth(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_ymonth(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
@@ -44,27 +35,18 @@ between_qmonths <- function(x, y) {
   x <- month_normalize(x)
   y <- month_normalize(y)
 
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:3)) {
-    glubort("`x` ({x}) must be a valid month of the quarter, in `1:3`.")
-  }
-
-  if (!vec_in(y, 1:3)) {
-    glubort("`y` ({y}) must be a valid month of the quarter, in `1:3`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_qmonth(x, inclusive = TRUE)
+  before <- before_qmonth(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_qmonth(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(

@@ -1,26 +1,17 @@
 #' @export
 between_quarters <- function(x, y) {
-  x <- vec_cast(x, integer())
-  y <- vec_cast(y, integer())
-
-  vec_assert(x, size = 1L)
-  vec_assert(y, size = 1L)
-
-  if (!vec_in(x, 1:4)) {
-    glubort("`x` ({x}) must be a valid quarter, in `1:4`.")
-  }
-
-  if (!vec_in(y, 1:4)) {
-    glubort("`y` ({y}) must be a valid quarter, in `1:4`.")
-  }
+  x <- cast_scalar_integer(x)
+  y <- cast_scalar_integer(y, "y")
 
   if (x > y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
+  after <- after_quarter(x, inclusive = TRUE)
+  before <- before_quarter(y, inclusive = TRUE)
+
   test <- function(env) {
-    value <- current_quarter(env)
-    x <= value & y >= value
+    event_is_impl(after, env) & event_is_impl(before, env)
   }
 
   new_event(
