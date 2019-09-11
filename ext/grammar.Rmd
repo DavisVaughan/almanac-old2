@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Todo
 
 - How to do "5th tuesday or thursday of the month"?
-- `on_date()` and `between_dates()`
 
 ## On functions
 
@@ -188,6 +187,11 @@ _Maybe_ these
   - For example, "Before 25th day of the month in January"
   - "After 2nd day of the quarter in the 3rd quarter"
   - "Between 12th of January and 25th of October"
+
+- Shortcuts
+  - `on_weekdays()`
+  - `on_weekends()`
+
 
 - On N-th occurance of `event` within the `within`
   - `on_count()`
