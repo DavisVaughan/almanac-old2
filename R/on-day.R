@@ -37,29 +37,51 @@ yday_from_end <- function(x) {
   days_in_year(x) - yday(x) + 1L
 }
 
+days_in_year <- function(x) {
+  n_days <- rep(365L, times = length(x))
+  n_days[leap_year(x)] <- 366L
+  n_days
+}
+
 # ------------------------------------------------------------------------------
 
 #' @export
-on_qday <- function(x) {
+on_qday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
 
   test <- function(env) {
-    vec_in(current_qday(env), x)
+    if (start) {
+      value <- current_qday(env)
+    } else {
+      value <- current_qday_from_end(env)
+    }
+
+    vec_in(value, x)
+  }
+
+  if (start) {
+    desc <- "On day of the quarter: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On day from the end of the quarter: {collapse_and_trim(x)}"
   }
 
   new_event(
-    description = glue("On day of the quarter: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
 }
 
-current_qday_from_start <- function(env) {
-  current_qday(env)
+qday_from_end <- function(x) {
+  days_in_quarter(x) - qday(x) + 1L
 }
 
-current_qday_from_end <- function(env) {
-  days_left_in_quarter <- current_days_in_quarter(env) - current_qday(env)
-  days_left_in_quarter + 1L
+N_DAYS_IN_QUARTER <- c(90L, 91L, 92L, 92L)
+
+days_in_quarter <- function(x) {
+  quarter_x <- quarter(x)
+  n_days <- N_DAYS_IN_QUARTER[quarter_x]
+  n_days[quarter_x == 1L & leap_year(x)] <- 91L
+  n_days
 }
 
 # ------------------------------------------------------------------------------

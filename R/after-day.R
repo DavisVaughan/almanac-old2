@@ -38,18 +38,29 @@ after_yday <- function(x, inclusive = FALSE, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-after_qday <- function(x, inclusive = FALSE) {
+after_qday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
 
   test <- function(env) {
-    value <- current_qday(env)
+    if (start) {
+      value <- current_qday(env)
+    } else {
+      value <- current_qday_from_end(env)
+    }
+
     test_after(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "After day of the quarter: {x}"
+  } else {
+    desc <- "After day from the end of the quarter: {x}"
+  }
+
   new_event(
-    description = glue("After day of the quarter: {x}"),
+    description = glue(desc),
     test = test
   )
 }

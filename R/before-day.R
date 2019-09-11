@@ -38,18 +38,29 @@ before_yday <- function(x, inclusive = FALSE, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-before_qday <- function(x, inclusive = FALSE) {
+before_qday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
 
   test <- function(env) {
-    value <- current_qday(env)
+    if (start) {
+      value <- current_qday(env)
+    } else {
+      value <- current_qday_from_end(env)
+    }
+
     test_before(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "Before day of the quarter: {x}"
+  } else {
+    desc <- "Before day from the end of the quarter: {x}"
+  }
+
   new_event(
-    description = glue("Before day of the quarter: {x}"),
+    description = glue(desc),
     test = test
   )
 }

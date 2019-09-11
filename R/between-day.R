@@ -34,7 +34,7 @@ between_ydays <- function(x, y, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-between_qdays <- function(x, y) {
+between_qdays <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
   y <- cast_scalar_integer(y, "y")
 
@@ -42,15 +42,21 @@ between_qdays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  after <- after_qday(x, inclusive = TRUE)
-  before <- before_qday(y, inclusive = TRUE)
+  after <- after_qday(x, inclusive = TRUE, start = start)
+  before <- before_qday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
     event_is_impl(after, env) & event_is_impl(before, env)
   }
 
+  if (start) {
+    desc <- "Between days of the quarter: {x}-{y}"
+  } else {
+    desc <- "Between days from the end of the quarter: {x}-{y}"
+  }
+
   new_event(
-    description = glue("Between days of the quarter: {x}-{y}"),
+    description = glue(desc),
     test = test
   )
 }
