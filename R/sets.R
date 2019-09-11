@@ -55,6 +55,22 @@ event_diff <- function(x, y) {
   )
 }
 
+#' @export
+event_invert <- function(x) {
+  assert_event(x, arg = "`x`")
+
+  test <- function(env) {
+    !event_is_impl(x, env)
+  }
+
+  new_composite_event(
+    description = "Inverted",
+    test = test,
+    events = list(x),
+    class = "inverted_event"
+  )
+}
+
 # Helps to flatten repeated combinations of intersection events
 # in_year(2019) & in_year(2020) & in_year(2021)
 combine_events <- function(x, y, class) {
@@ -96,6 +112,11 @@ combine_events <- function(x, y, class) {
   }
 }
 
+#' @export
+`!.event` <- function(x) {
+  vec_arith("!", x, vctrs::MISSING())
+}
+
 # These result in errors
 
 #' @export
@@ -125,11 +146,6 @@ combine_events <- function(x, y, class) {
 #' @export
 `%/%.event` <- function(e1, e2) {
   vec_arith("%/%", e1, e2)
-}
-
-#' @export
-`!.event` <- function(x) {
-  vec_arith("!", x, vctrs::MISSING())
 }
 
 # ------------------------------------------------------------------------------
@@ -177,5 +193,13 @@ vec_arith.event.event <- function(op, x, y, ...) {
   )
 }
 
+#' @method vec_arith.event MISSING
+#' @export
+vec_arith.event.MISSING <- function(op, x, y, ...) {
+  switch(op,
+    `!` = event_invert(x),
+    vctrs::stop_incompatible_op(op, x, y)
+  )
+}
 
 
