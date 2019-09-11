@@ -7,6 +7,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Todo
+
+- How to do "5th tuesday or thursday of the month"?
+- `on_date()` and `between_dates()`
+
 ## On functions
 
 - On the year
@@ -55,10 +60,13 @@ knitr::opts_chunk$set(echo = TRUE)
 - On the day of the month
   - `on_day_of_month(<int>)`
   - `on_day()`
-  - `on_mday()`
+  - `on_mday(<int>, start = TRUE/FALSE)`
 - On the day of the week
   - `on_day_of_week(<int>)`
   - `on_wday()`
+  
+- On the date
+  - `on_date(<date>)`
   
 _Maybe_ these
 
@@ -73,6 +81,63 @@ _Maybe_ these
 - On minute of the day
   - `on_minute_of_day()`
   - `on_dminute()`
+
+## After/Before functions
+
+- These are nice because you can say `after_mday(15)` and not have to worry about
+  where the end of the month is. Or say `after_mday(2, start = FALSE)` and again
+  be able to start from 2 days prior to the end of the month, wherever that is.
+
+- All of these functions should have an `inclusive` boolean parameter as well.
+
+- Before the year
+  - `before_year(<int>)`
+- Before the iso year
+  - `before_isoyear(<int>)`
+- Before the epi year
+  - `before_epiyear(<int>)`
+  
+- Before the quarter
+  - `before_quarter_of_year(<int>)`
+  - `before_quarter(fiscal_start = 1)`
+  - Restrict to 1:4
+  
+- Before the month of the year
+  - `before_month_of_year(<int/chr>)`
+  - `before_month()`
+  - `before_ymonth()`
+  - Allow December / Dec / 12
+- Before the month of the quarter
+  - `before_month_of_quarter(<int>)`
+  - `before_qmonth()`
+  
+- Before the week of the year
+  - `before_week_of_year(<int>)`
+  - `before_week()`
+  - `before_yweek(<int>, start = FALSE/TRUE)`
+- Before the week of the quarter
+  - `before_week_of_quarter(<int>)`
+  - `before_qweek(<int>, start = FALSE/TRUE)`
+- Before the week of the month
+  - `before_week_of_month(<int>)`
+  - `before_mweek(<int>, start = FALSE/TRUE)`
+
+- Before the day of the year
+  - `before_day_of_year(<int>)`
+  - `before_yday(<int>, start = FALSE/TRUE)`
+- Before the day of the quarter
+  - `before_day_of_quarter(<int>)`
+  - `before_qday(<int>, start = FALSE/TRUE)`
+- Before the day of the month
+  - `before_day_of_month(<int>)`
+  - `before_day(<int>, start = FALSE/TRUE)`
+  - `before_mday(<int>, start = TRUE/FALSE)`
+- Before the day of the week
+  - `before_day_of_week(<int>)`
+  - `before_wday(<int>, start = FALSE/TRUE)`
+  
+- Before the date
+  - `before_date(<date>)`
   
 ## Between functions
 
@@ -107,10 +172,37 @@ _Maybe_ these
 - Between two days in a quarter
   - `between_qdays(<int>, <int>)`
 - Between two days in a month
-  - `between_mdays(<int>, <int>)`
+  - `between_mdays(<int>, <int>, start = TRUE/FALSE)`
 - Between two days in a week
   - `between_wdays(<int>, <int>)`
   - Allow normalizing
+
+- Between two dates
+  - `between_dates(<date>, <date>)`
+
+## Miscellaneous
+
+- Before <X> of the <period>, in <Y instance of the period>
+  - These can all be generated from existing logic, but helpers for the 
+    common ones make it easier
+  - For example, "Before 25th day of the month in January"
+  - "After 2nd day of the quarter in the 3rd quarter"
+  - "Between 12th of January and 25th of October"
+
+- On N-th occurance of `event` within the `within`
+  - `on_count()`
+  
+- On N-th repeat of `event` since the `since` value
+  - `on_repeat()`
+
+- Note:
+  - Could these be combined? Is the API really more like:
+    `on_repeat(event, n, from, to)`
+  - Current `on_repeat()` would be `on_repeat(from = since, to = NULL)`
+  - Current `on_count()` would be like `on_repeat(from = "month_start", to = "month_end")`
+  - Maybe we could allow:
+    - `on_repeat(from = "2000-01-01", to = ~max(.x))`
+    - `on_repeat(from = ~floor_date(.x, "month"), to = ~ceiling_date(.x, "month"))`
 
 ## N-th functions
 
@@ -124,10 +216,7 @@ _Maybe_ these
 
 - "On the first Thursday of the quarter"
   - `on_wday("Thursday") %i% on_qweek(1)`
-  
-  
-  
-  
+
   
   
   
