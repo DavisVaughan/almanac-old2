@@ -1,5 +1,5 @@
 #' @export
-on_every_nth <- function(n, event, since) {
+on_repeat <- function(event, n, since) {
   n <- vec_cast(n, integer())
   vec_assert(n, size = 1L)
 
