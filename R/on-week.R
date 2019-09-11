@@ -91,7 +91,13 @@ on_mweek <- function(x, start = TRUE) {
   start <- vec_assert(start, logical(), 1L)
 
   test <- function(env) {
-    mweek_matches(x, start, env)
+    if (start) {
+      value <- current_mweek(env)
+    } else {
+      value <- current_mweek_from_end(env)
+    }
+
+    vec_in(value, x)
   }
 
   if (start) {
@@ -106,28 +112,14 @@ on_mweek <- function(x, start = TRUE) {
   )
 }
 
-mweek_matches <- function(x, start, env) {
-  if (start) {
-    vec_in(current_mweek_from_start(env), x)
-  } else {
-    vec_in(current_mweek_from_end(env), x)
-  }
-}
-
-# Find the week in the month
 mweek <- function(x) {
   mweek_impl(mday(x))
 }
 
+mweek_from_end <- function(x) {
+  mweek_impl(mday_from_end(x))
+}
+
 mweek_impl <- function(x) {
   (x - 1L) %/% 7L + 1L
-}
-
-current_mweek_from_end <- function(env) {
-  days_left_in_month <- current_days_in_month(env) - current_mday(env)
-  mweek_impl(days_left_in_month + 1L)
-}
-
-current_mweek_from_start <- function(env) {
-  current_mweek(env)
 }

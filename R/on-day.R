@@ -87,7 +87,7 @@ days_in_quarter <- function(x) {
 # ------------------------------------------------------------------------------
 
 #' @export
-on_mday <- function(x) {
+on_mday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
 
   if (!all(vec_in(x, 1:31))) {
@@ -95,13 +95,34 @@ on_mday <- function(x) {
   }
 
   test <- function(env) {
-    vec_in(current_mday(env), x)
+    if (start) {
+      value <- current_mday(env)
+    } else {
+      value <- current_mday_from_end(env)
+    }
+
+    vec_in(value, x)
+  }
+
+  if (start) {
+    desc <- "On day of the month: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On day from the end of the month: {collapse_and_trim(x)}"
   }
 
   new_event(
-    description = glue("On day of the month: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
+}
+
+mday_from_end <- function(x) {
+  days_in_month2(x) - mday(x) + 1L
+}
+
+# The names seem to cause problems with vctrs assertions
+days_in_month2 <- function(x) {
+  unname(days_in_month(x))
 }
 
 # ------------------------------------------------------------------------------

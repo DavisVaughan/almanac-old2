@@ -68,7 +68,7 @@ after_qday <- function(x, inclusive = FALSE, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-after_mday <- function(x, inclusive = FALSE) {
+after_mday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
@@ -78,12 +78,23 @@ after_mday <- function(x, inclusive = FALSE) {
   }
 
   test <- function(env) {
-    value <- current_mday(env)
+    if (start) {
+      value <- current_mday(env)
+    } else {
+      value <- current_mday_from_end(env)
+    }
+
     test_after(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "After day of the month: {x}"
+  } else {
+    desc <- "After day from the end of the month: {x}"
+  }
+
   new_event(
-    description = glue("After day of the month: {x}"),
+    description = glue(desc),
     test = test
   )
 }

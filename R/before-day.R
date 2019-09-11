@@ -68,7 +68,7 @@ before_qday <- function(x, inclusive = FALSE, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-before_mday <- function(x, inclusive = FALSE) {
+before_mday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
@@ -78,12 +78,23 @@ before_mday <- function(x, inclusive = FALSE) {
   }
 
   test <- function(env) {
-    value <- current_mday(env)
+    if (start) {
+      value <- current_mday(env)
+    } else {
+      value <- current_mday_from_end(env)
+    }
+
     test_before(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "Before day of the month: {x}"
+  } else {
+    desc <- "Before day from the end of the month: {x}"
+  }
+
   new_event(
-    description = glue("Before day of the month: {x}"),
+    description = glue(desc),
     test = test
   )
 }

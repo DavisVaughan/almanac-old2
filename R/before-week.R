@@ -15,7 +15,7 @@ before_yweek <- function(x, inclusive = FALSE, start = TRUE) {
 
   test <- function(env) {
     if (start) {
-      value <- current_yweek_from_start(env)
+      value <- current_yweek(env)
     } else {
       value <- current_yweek_from_end(env)
     }
@@ -45,7 +45,7 @@ before_qweek <- function(x, inclusive = FALSE, start = TRUE) {
 
   test <- function(env) {
     if (start) {
-      value <- current_qweek_from_start(env)
+      value <- current_qweek(env)
     } else {
       value <- current_qweek_from_end(env)
     }
@@ -79,7 +79,7 @@ before_mweek <- function(x, inclusive = FALSE, start = TRUE) {
 
   test <- function(env) {
     if (start) {
-      value <- current_mweek_from_start(env)
+      value <- current_mweek(env)
     } else {
       value <- current_mweek_from_end(env)
     }
