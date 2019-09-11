@@ -154,6 +154,16 @@ on_wday <- function(x, start = TRUE) {
   )
 }
 
+#' @export
+on_weekends <- function() {
+  on_wday(c(1L, 7L))
+}
+
+#' @export
+on_weekdays <- function() {
+  on_wday(2:6)
+}
+
 wday_from_end <- function(x) {
   7L - wday(x, week_start = 7L) + 1L
 }
