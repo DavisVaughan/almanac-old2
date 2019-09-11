@@ -44,6 +44,11 @@ event_union <- function(x, y) {
 }
 
 #' @export
+`%u%` <- function(x, y) {
+  event_union(x, y)
+}
+
+#' @export
 event_diff <- function(x, y) {
   assert_event(x, arg = "`x`")
   assert_event(y, arg = "`y`")
