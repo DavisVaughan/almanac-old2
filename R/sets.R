@@ -60,7 +60,7 @@ event_diff <- function(x, y) {
   new_composite_event(
     description = "Difference",
     test = test,
-    events = events,
+    events = list(x, y),
     class = "difference_event"
   )
 }
