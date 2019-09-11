@@ -13,7 +13,7 @@ on_yday <- function(x, start = TRUE) {
 
   test <- function(env) {
     if (start) {
-      value <- current_yday_from_start(env)
+      value <- current_yday(env)
     } else {
       value <- current_yday_from_end(env)
     }
@@ -33,13 +33,8 @@ on_yday <- function(x, start = TRUE) {
   )
 }
 
-current_yday_from_start <- function(env) {
-  current_yday(env)
-}
-
-current_yday_from_end <- function(env) {
-  days_left_in_year <- current_days_in_year(env) - current_yday(env)
-  days_left_in_year + 1L
+yday_from_end <- function(x) {
+  days_in_year(x) - yday(x) + 1L
 }
 
 # ------------------------------------------------------------------------------
@@ -56,6 +51,15 @@ on_qday <- function(x) {
     description = glue("On day of the quarter: {collapse_and_trim(x)}"),
     test = test
   )
+}
+
+current_qday_from_start <- function(env) {
+  current_qday(env)
+}
+
+current_qday_from_end <- function(env) {
+  days_left_in_quarter <- current_days_in_quarter(env) - current_qday(env)
+  days_left_in_quarter + 1L
 }
 
 # ------------------------------------------------------------------------------

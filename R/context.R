@@ -19,11 +19,14 @@ init_context <- function(x) {
     qweek = expr(qweek(x_lt)),
     mweek = expr(mweek(x_lt)),
 
-    day = expr(day(x_lt)),
+    yweek_from_end = expr(yweek_from_end(x_lt)),
+
     yday = expr(yday(x_lt)),
     mday = expr(mday(x_lt)),
     wday = expr(wday(x_lt, week_start = 7L)),
     qday = expr(qday(x_lt)),
+
+    yday_from_end = expr(yday_from_end(x_lt)),
 
     days_in_year = expr(days_in_year(x_lt)),
     days_in_quarter = expr(days_in_quarter(x_lt)),
@@ -75,6 +78,7 @@ current_qmonth <- function(env) {
   env[["qmonth"]]
 }
 
+
 current_yweek <- function(env) {
   env[["yweek"]]
 }
@@ -88,9 +92,10 @@ current_mweek <- function(env) {
 }
 
 
-current_day <- function(env) {
-  env[["day"]]
+current_yweek_from_end <- function(env) {
+  env[["yweek_from_end"]]
 }
+
 
 current_yday <- function(env) {
   env[["yday"]]
@@ -107,6 +112,12 @@ current_wday <- function(env) {
 current_qday <- function(env) {
   env[["qday"]]
 }
+
+
+current_yday_from_end <- function(env) {
+  env[["yday_from_end"]]
+}
+
 
 current_days_in_year <- function(env) {
   env[["days_in_year"]]

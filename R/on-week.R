@@ -9,7 +9,13 @@ on_yweek <- function(x, start = TRUE) {
   start <- vec_assert(start, logical(), 1L)
 
   test <- function(env) {
-    yweek_matches(x, start, env)
+    if (start) {
+      value <- current_yweek(env)
+    } else {
+      value <- current_yweek_from_end(env)
+    }
+
+    vec_in(value, x)
   }
 
   if (start) {
@@ -28,25 +34,12 @@ yweek <- function(x) {
   week(x)
 }
 
+yweek_from_end <- function(x) {
+  yweek_impl(yday_from_end(x))
+}
+
 yweek_impl <- function(x) {
   (x - 1L) %/% 7L + 1L
-}
-
-yweek_matches <- function(x, start, env) {
-  if (start) {
-    vec_in(current_yweek_from_start(env), x)
-  } else {
-    vec_in(current_yweek_from_end(env), x)
-  }
-}
-
-current_yweek_from_end <- function(env) {
-  days_left_in_year <- current_days_in_year(env) - current_yday(env)
-  yweek_impl(days_left_in_year + 1L)
-}
-
-current_yweek_from_start <- function(env) {
-  current_yweek(env)
 }
 
 days_in_year <- function(x) {

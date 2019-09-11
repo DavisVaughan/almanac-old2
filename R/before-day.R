@@ -15,7 +15,7 @@ before_yday <- function(x, inclusive = FALSE, start = TRUE) {
 
   test <- function(env) {
     if (start) {
-      value <- current_yday_from_start(env)
+      value <- current_yday(env)
     } else {
       value <- current_yday_from_end(env)
     }
