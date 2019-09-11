@@ -128,16 +128,32 @@ days_in_month2 <- function(x) {
 # ------------------------------------------------------------------------------
 
 #' @export
-on_wday <- function(x) {
+on_wday <- function(x, start = TRUE) {
   x <- wday_normalize(x)
   x <- vec_cast(x, integer())
 
   test <- function(env) {
-    vec_in(current_wday(env), x)
+    if (start) {
+      value <- current_wday(env)
+    } else {
+      value <- current_wday_from_end(env)
+    }
+
+    vec_in(value, x)
+  }
+
+  if (start) {
+    desc <- "On day of the week: {collapse_and_trim(weekday_print()[x])}"
+  } else {
+    desc <- "On day from the end of the week: {collapse_and_trim(weekday_print()[x])}"
   }
 
   new_event(
-    description = glue("On day of the week: {collapse_and_trim(weekday_print()[x])}"),
+    description = glue(desc),
     test = test
   )
+}
+
+wday_from_end <- function(x) {
+  7L - wday(x, week_start = 7L) + 1L
 }

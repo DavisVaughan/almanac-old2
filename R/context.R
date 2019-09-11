@@ -31,6 +31,7 @@ init_context <- function(x) {
     yday_from_end = expr(yday_from_end(x_lt)),
     qday_from_end = expr(qday_from_end(x_lt)),
     mday_from_end = expr(mday_from_end(x_lt)),
+    wday_from_end = expr(wday_from_end(x_lt)),
 
     days_in_year = expr(days_in_year(x_lt)),
     days_in_quarter = expr(days_in_quarter(x_lt)),
@@ -136,6 +137,10 @@ current_qday_from_end <- function(env) {
 
 current_mday_from_end <- function(env) {
   env[["mday_from_end"]]
+}
+
+current_wday_from_end <- function(env) {
+  env[["wday_from_end"]]
 }
 
 

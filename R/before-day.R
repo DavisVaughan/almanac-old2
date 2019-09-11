@@ -102,7 +102,7 @@ before_mday <- function(x, inclusive = FALSE, start = TRUE) {
 # ------------------------------------------------------------------------------
 
 #' @export
-before_wday <- function(x, inclusive = FALSE) {
+before_wday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- wday_normalize(x)
   x <- cast_scalar_integer(x)
 
@@ -113,12 +113,23 @@ before_wday <- function(x, inclusive = FALSE) {
   }
 
   test <- function(env) {
-    value <- current_wday(env)
+    if (start) {
+      value <- current_wday(env)
+    } else {
+      value <- current_wday_from_end(env)
+    }
+
     test_before(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "Before day of the week: {weekday_print()[x]}"
+  } else {
+    desc <- "Before day from the end of the week: {weekday_print()[x]}"
+  }
+
   new_event(
-    description = glue("Before day of the week: {weekday_print()[x]}"),
+    description = glue(desc),
     test = test
   )
 }
