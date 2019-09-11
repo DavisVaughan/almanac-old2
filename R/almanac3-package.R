@@ -15,5 +15,6 @@
 #' @importFrom vctrs vec_match
 #' @importFrom vctrs vec_is
 #' @importFrom vctrs vec_init
+#' @importFrom vctrs vec_arith
 ## usethis namespace: end
 NULL

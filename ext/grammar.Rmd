@@ -213,13 +213,13 @@ _Maybe_ these
 - Hopefully not required, and replaceable with `on_wday()` and `on_mweek()`
   
 - "On the second monday of the month"
-  - `on_wday("Monday") %i% on_mweek(2)`
+  - `on_wday("Monday") & on_mweek(2)`
 
 - "On the last Thursday of the month"
-  - `on_wday("Thursday") %i% on_mweek(1, start = FALSE)`
+  - `on_wday("Thursday") & on_mweek(1, start = FALSE)`
 
 - "On the first Thursday of the quarter"
-  - `on_wday("Thursday") %i% on_qweek(1)`
+  - `on_wday("Thursday") & on_qweek(1)`
 
   
   

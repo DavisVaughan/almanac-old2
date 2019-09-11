@@ -5,8 +5,8 @@
 # maybe an example like:
 # `before_mweek_in_month(month, mday, inclusive = FALSE)` created from:
 # strictly_before_ymonth <- before_ymonth(month, inclusive = F)
-# in_ymonth_and_before_mweek <- on_ymonth(month) %i% before_mweek(mweek, inclusive = inclusive)
-# strictly_before_ymonth %u% in_ymonth_and_before_mweek
+# in_ymonth_and_before_mweek <- on_ymonth(month) & before_mweek(mweek, inclusive = inclusive)
+# strictly_before_ymonth | in_ymonth_and_before_mweek
 
 #' @export
 before_mday_in_month <- function(month, mday, inclusive = FALSE) {
@@ -26,9 +26,9 @@ before_mday_in_month <- function(month, mday, inclusive = FALSE) {
   }
 
   strictly_before_ymonth <- before_ymonth(month, inclusive = FALSE)
-  in_ymonth_and_before_mday <- on_ymonth(month) %i% before_mday(mday, inclusive = inclusive)
+  in_ymonth_and_before_mday <- on_ymonth(month) & before_mday(mday, inclusive = inclusive)
 
-  event_is_before_mday_in_month <- strictly_before_ymonth %u% in_ymonth_and_before_mday
+  event_is_before_mday_in_month <- strictly_before_ymonth | in_ymonth_and_before_mday
 
   test <- function(env) {
     event_is_impl(event_is_before_mday_in_month, env)
