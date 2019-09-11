@@ -1,10 +1,10 @@
 #' @export
-after_day <- function(x, inclusive = FALSE) {
+after_day <- function(x, inclusive = FALSE, start = TRUE) {
   after_yday(x, inclusive)
 }
 
 #' @export
-after_yday <- function(x, inclusive = FALSE) {
+after_yday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
@@ -14,12 +14,23 @@ after_yday <- function(x, inclusive = FALSE) {
   }
 
   test <- function(env) {
-    value <- current_yday(env)
+    if (start) {
+      value <- current_yday_from_start(env)
+    } else {
+      value <- current_yday_from_end(env)
+    }
+
     test_after(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "After day of the year: {x}"
+  } else {
+    desc <- "After day from the end of the year: {x}"
+  }
+
   new_event(
-    description = glue("After day of the year: {x}"),
+    description = glue(desc),
     test = test
   )
 }

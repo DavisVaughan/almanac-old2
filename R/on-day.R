@@ -1,10 +1,10 @@
 #' @export
-on_day <- function(x) {
-  on_yday(x)
+on_day <- function(x, start = TRUE) {
+  on_yday(x, start)
 }
 
 #' @export
-on_yday <- function(x) {
+on_yday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
 
   if (any(!vec_in(x, 1:366))) {
@@ -12,13 +12,34 @@ on_yday <- function(x) {
   }
 
   test <- function(env) {
-    vec_in(current_yday(env), x)
+    if (start) {
+      value <- current_yday_from_start(env)
+    } else {
+      value <- current_yday_from_end(env)
+    }
+
+    vec_in(value, x)
+  }
+
+  if (start) {
+    desc <- "On day of the year: {collapse_and_trim(x)}"
+  } else {
+    desc <- "On day from the end of the year: {collapse_and_trim(x)}"
   }
 
   new_event(
-    description = glue("On day of the year: {collapse_and_trim(x)}"),
+    description = glue(desc),
     test = test
   )
+}
+
+current_yday_from_start <- function(env) {
+  current_yday(env)
+}
+
+current_yday_from_end <- function(env) {
+  days_left_in_year <- current_days_in_year(env) - current_yday(env)
+  days_left_in_year + 1L
 }
 
 # ------------------------------------------------------------------------------

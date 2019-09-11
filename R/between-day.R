@@ -1,10 +1,10 @@
 #' @export
-between_days <- function(x, y) {
+between_days <- function(x, y, start = TRUE) {
   between_ydays(x, y)
 }
 
 #' @export
-between_ydays <- function(x, y) {
+between_ydays <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
   y <- cast_scalar_integer(y, "y")
 
@@ -12,15 +12,21 @@ between_ydays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  after <- after_yday(x, inclusive = TRUE)
-  before <- before_yday(y, inclusive = TRUE)
+  after <- after_yday(x, inclusive = TRUE, start = start)
+  before <- before_yday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
     event_is_impl(after, env) & event_is_impl(before, env)
   }
 
+  if (start) {
+    desc <- "Between days of the year: {x}-{y}"
+  } else {
+    desc <- "Between days from the end of the year: {x}-{y}"
+  }
+
   new_event(
-    description = glue("Between days of the year: {x}-{y}"),
+    description = glue(desc),
     test = test
   )
 }

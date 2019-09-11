@@ -1,10 +1,10 @@
 #' @export
-before_day <- function(x, inclusive = FALSE) {
+before_day <- function(x, inclusive = FALSE, start = TRUE) {
   before_yday(x, inclusive)
 }
 
 #' @export
-before_yday <- function(x, inclusive = FALSE) {
+before_yday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
 
   vec_assert(inclusive, logical(), 1L)
@@ -14,12 +14,23 @@ before_yday <- function(x, inclusive = FALSE) {
   }
 
   test <- function(env) {
-    value <- current_yday(env)
+    if (start) {
+      value <- current_yday_from_start(env)
+    } else {
+      value <- current_yday_from_end(env)
+    }
+
     test_before(x, value, inclusive)
   }
 
+  if (start) {
+    desc <- "Before day of the year: {x}"
+  } else {
+    desc <- "Before day from the end of the year: {x}"
+  }
+
   new_event(
-    description = glue("Before day of the year: {x}"),
+    description = glue(desc),
     test = test
   )
 }
