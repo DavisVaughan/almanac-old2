@@ -1,7 +1,6 @@
 #' @export
 on_repeat <- function(event, n, since) {
-  n <- vec_cast(n, integer())
-  vec_assert(n, size = 1L)
+  n <- cast_scalar_integer(n, "n")
 
   since <- vec_cast(since, new_date())
   vec_assert(since, size = 1L)

@@ -2,8 +2,7 @@
 on_count <- function(event, n, within = "month") {
   assert_event(event)
 
-  n <- vec_cast(n, integer())
-  vec_assert(n, size = 1L)
+  n <- cast_scalar_integer(n, "n")
 
   arg_match(within, c("day", "week", "month", "quarter", "year"))
 
