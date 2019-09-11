@@ -18,8 +18,8 @@ between_quarters <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_quarter()
+  test <- function(env) {
+    value <- current_quarter(env)
     x <= value & y >= value
   }
 

@@ -11,8 +11,8 @@ on_yday <- function(x) {
     abort("`x` must be a valid year day, in `1:366`.")
   }
 
-  test <- function() {
-    vec_in(current_yday(), x)
+  test <- function(env) {
+    vec_in(current_yday(env), x)
   }
 
   new_event(
@@ -27,8 +27,8 @@ on_yday <- function(x) {
 on_qday <- function(x) {
   x <- vec_cast(x, integer())
 
-  test <- function() {
-    vec_in(current_qday(), x)
+  test <- function(env) {
+    vec_in(current_qday(env), x)
   }
 
   new_event(
@@ -47,8 +47,8 @@ on_mday <- function(x) {
     abort("`x` must be a valid month day, in `1:31`.")
   }
 
-  test <- function() {
-    vec_in(current_mday(), x)
+  test <- function(env) {
+    vec_in(current_mday(env), x)
   }
 
   new_event(
@@ -64,8 +64,8 @@ on_wday <- function(x) {
   x <- wday_normalize(x)
   x <- vec_cast(x, integer())
 
-  test <- function() {
-    vec_in(current_wday(), x)
+  test <- function(env) {
+    vec_in(current_wday(env), x)
   }
 
   new_event(

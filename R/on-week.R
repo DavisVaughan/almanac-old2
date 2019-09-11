@@ -8,8 +8,8 @@ on_yweek <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
   start <- vec_assert(start, logical(), 1L)
 
-  test <- function() {
-    yweek_matches(x, start)
+  test <- function(env) {
+    yweek_matches(x, start, env)
   }
 
   if (start) {
@@ -32,21 +32,21 @@ yweek_impl <- function(x) {
   (x - 1L) %/% 7L + 1L
 }
 
-yweek_matches <- function(x, start) {
+yweek_matches <- function(x, start, env) {
   if (start) {
-    vec_in(current_yweek_from_start(), x)
+    vec_in(current_yweek_from_start(env), x)
   } else {
-    vec_in(current_yweek_from_end(), x)
+    vec_in(current_yweek_from_end(env), x)
   }
 }
 
-current_yweek_from_end <- function() {
-  days_left_in_year <- current_days_in_year() - current_yday()
+current_yweek_from_end <- function(env) {
+  days_left_in_year <- current_days_in_year(env) - current_yday(env)
   yweek_impl(days_left_in_year + 1L)
 }
 
-current_yweek_from_start <- function() {
-  current_yweek()
+current_yweek_from_start <- function(env) {
+  current_yweek(env)
 }
 
 days_in_year <- function(x) {
@@ -62,8 +62,8 @@ on_qweek <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
   start <- vec_assert(start, logical(), 1L)
 
-  test <- function() {
-    qweek_matches(x, start)
+  test <- function(env) {
+    qweek_matches(x, start, env)
   }
 
   if (start) {
@@ -78,21 +78,21 @@ on_qweek <- function(x, start = TRUE) {
   )
 }
 
-qweek_matches <- function(x, start) {
+qweek_matches <- function(x, start, env) {
   if (start) {
-    vec_in(current_qweek_from_start(), x)
+    vec_in(current_qweek_from_start(env), x)
   } else {
-    vec_in(current_qweek_from_end(), x)
+    vec_in(current_qweek_from_end(env), x)
   }
 }
 
-current_qweek_from_end <- function() {
-  days_left_in_quarter <- current_days_in_quarter() - current_qday()
+current_qweek_from_end <- function(env) {
+  days_left_in_quarter <- current_days_in_quarter(env) - current_qday(env)
   qweek_impl(days_left_in_quarter + 1L)
 }
 
-current_qweek_from_start <- function() {
-  current_qweek()
+current_qweek_from_start <- function(env) {
+  current_qweek(env)
 }
 
 # Find the week in the quarter
@@ -120,8 +120,8 @@ on_mweek <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
   start <- vec_assert(start, logical(), 1L)
 
-  test <- function() {
-    mweek_matches(x, start)
+  test <- function(env) {
+    mweek_matches(x, start, env)
   }
 
   if (start) {
@@ -136,11 +136,11 @@ on_mweek <- function(x, start = TRUE) {
   )
 }
 
-mweek_matches <- function(x, start) {
+mweek_matches <- function(x, start, env) {
   if (start) {
-    vec_in(current_mweek_from_start(), x)
+    vec_in(current_mweek_from_start(env), x)
   } else {
-    vec_in(current_mweek_from_end(), x)
+    vec_in(current_mweek_from_end(env), x)
   }
 }
 
@@ -153,11 +153,11 @@ mweek_impl <- function(x) {
   (x - 1L) %/% 7L + 1L
 }
 
-current_mweek_from_end <- function() {
-  days_left_in_month <- current_days_in_month() - current_mday()
+current_mweek_from_end <- function(env) {
+  days_left_in_month <- current_days_in_month(env) - current_mday(env)
   mweek_impl(days_left_in_month + 1L)
 }
 
-current_mweek_from_start <- function() {
-  current_mweek()
+current_mweek_from_start <- function(env) {
+  current_mweek(env)
 }

@@ -5,15 +5,15 @@ new_event <- function(description = "An event.",
                       class = character()) {
 
   if (is.null(test)) {
-    test <- function() TRUE
+    test <- function(env) TRUE
   }
 
   if (!is.function(test)) {
     abort("`test` must be a function.")
   }
 
-  if (length(fn_fmls(test)) != 0L) {
-    abort("`test` must be a function with 0 arguments.")
+  if (length(fn_fmls(test)) != 1L) {
+    abort("`test` must be a function with 1 argument.")
   }
 
   if (!is.character(description) || length(description) != 1L) {

@@ -23,11 +23,11 @@ between_yweeks <- function(x, y, start = TRUE) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
+  test <- function(env) {
     if (start) {
-      value <- current_yweek_from_start()
+      value <- current_yweek_from_start(env)
     } else {
-      value <- current_yweek_from_end()
+      value <- current_yweek_from_end(env)
     }
 
     x <= value & y >= value
@@ -59,11 +59,11 @@ between_qweeks <- function(x, y, start = TRUE) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
+  test <- function(env) {
     if (start) {
-      value <- current_qweek_from_start()
+      value <- current_qweek_from_start(env)
     } else {
-      value <- current_qweek_from_end()
+      value <- current_qweek_from_end(env)
     }
 
     x <= value & y >= value
@@ -103,11 +103,11 @@ between_mweeks <- function(x, y, start = TRUE) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
+  test <- function(env) {
     if (start) {
-      value <- current_mweek_from_start()
+      value <- current_mweek_from_start(env)
     } else {
-      value <- current_mweek_from_end()
+      value <- current_mweek_from_end(env)
     }
 
     x <= value & y >= value

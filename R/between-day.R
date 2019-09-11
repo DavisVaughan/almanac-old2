@@ -23,8 +23,8 @@ between_ydays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_yday()
+  test <- function(env) {
+    value <- current_yday(env)
     x <= value & y >= value
   }
 
@@ -48,8 +48,8 @@ between_qdays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_qday()
+  test <- function(env) {
+    value <- current_qday(env)
     x <= value & y >= value
   }
 
@@ -81,8 +81,8 @@ between_mdays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_mday()
+  test <- function(env) {
+    value <- current_mday(env)
     x <= value & y >= value
   }
 
@@ -117,8 +117,8 @@ between_wdays <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_wday()
+  test <- function(env) {
+    value <- current_wday(env)
     x <= value & y >= value
   }
 

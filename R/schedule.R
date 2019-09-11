@@ -40,16 +40,15 @@ sched_includes <- function(x, schedule) {
   x <- vec_cast(x, new_date())
   assert_schedule(schedule)
 
-  init_context(x)
-  on.exit(reset_context(), add = TRUE)
+  env <- init_context(x)
 
-  sched_includes_impl(schedule)
+  sched_includes_impl(schedule, env)
 }
 
-sched_includes_impl <- function(schedule) {
+sched_includes_impl <- function(schedule, env) {
   events <- schedule$events
   event <- reduce(events, event_union)
-  event_is_impl(event)
+  event_is_impl(event, env)
 }
 
 #' @export
@@ -74,10 +73,9 @@ sched_events <- function(x, schedule) {
   n_events <- length(events)
   n_x <- vec_size(x)
 
-  init_context(x)
-  on.exit(reset_context(), add = TRUE)
+  env <- init_context(x)
 
-  lst_of_results <- map(events, event_is_impl)
+  lst_of_results <- map(events, event_is_impl, env = env)
 
   out <- vec_init(list(), n_x)
   locs <- vec_init(logical(), n_events)

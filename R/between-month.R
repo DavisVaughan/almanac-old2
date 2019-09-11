@@ -26,8 +26,8 @@ between_ymonths <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_ymonth()
+  test <- function(env) {
+    value <- current_ymonth(env)
     x <= value & y >= value
   }
 
@@ -62,8 +62,8 @@ between_qmonths <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    value <- current_qmonth()
+  test <- function(env) {
+    value <- current_qmonth(env)
     x <= value & y >= value
   }
 

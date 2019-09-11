@@ -6,8 +6,8 @@ on_semester <- function(x) {
     abort("`x` must be a valid semester, in `1:2`.")
   }
 
-  test <- function() {
-    vec_in(current_semester(), x)
+  test <- function(env) {
+    vec_in(current_semester(env), x)
   }
 
   new_event(

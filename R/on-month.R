@@ -12,8 +12,8 @@ on_ymonth <- function(x) {
     abort("`x` must be a valid month of the year, in `1:12`.")
   }
 
-  test <- function() {
-    vec_in(current_ymonth(), x)
+  test <- function(env) {
+    vec_in(current_ymonth(env), x)
   }
 
   new_event(
@@ -36,8 +36,8 @@ on_qmonth <- function(x) {
     abort("`x` must be a valid month of the quarter, in `1:3`.")
   }
 
-  test <- function() {
-    vec_in(current_qmonth(), x)
+  test <- function(env) {
+    vec_in(current_qmonth(env), x)
   }
 
   new_event(

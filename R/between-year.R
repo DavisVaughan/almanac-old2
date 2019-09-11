@@ -10,8 +10,8 @@ between_years <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    year <- current_year()
+  test <- function(env) {
+    year <- current_year(env)
     x <= year & y >= year
   }
 
@@ -35,8 +35,8 @@ between_isoyears <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    year <- current_isoyear()
+  test <- function(env) {
+    year <- current_isoyear(env)
     x <= year & y >= year
   }
 
@@ -60,8 +60,8 @@ between_epiyears <- function(x, y) {
     glubort("`x` ({x}) must come before `y` ({y}).")
   }
 
-  test <- function() {
-    year <- current_epiyear()
+  test <- function(env) {
+    year <- current_epiyear(env)
     x <= year & y >= year
   }
 

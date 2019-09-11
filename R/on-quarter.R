@@ -6,8 +6,8 @@ on_quarter <- function(x) {
     glubort("`x` must be a valid quarter, in `1:4`.")
   }
 
-  test <- function() {
-    vec_in(current_quarter(), x)
+  test <- function(env) {
+    vec_in(current_quarter(env), x)
   }
 
   new_event(

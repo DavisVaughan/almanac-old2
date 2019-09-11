@@ -1,9 +1,7 @@
-context_env <- new.env(parent = emptyenv())
-
 init_context <- function(x) {
   x_lt <- as_posixlt(x)
 
-  .data <- list(
+  data <- list(
     date = expr(x),
 
     year = expr(year(x_lt)),
@@ -34,128 +32,95 @@ init_context <- function(x) {
     size = expr(vec_size(x))
   )
 
-  env_bind_lazy(context_env, !!!.data)
+  env <- new.env(parent = emptyenv())
 
-  invisible(x)
+  env_bind_lazy(env, !!!data)
+
+  env
 }
 
-reset_context <- function() {
-  # Avoid `env_bind()` triggering the lazy bindings
-  context_env$date <- NULL
-
-  context_env$year <- NULL
-  context_env$isoyear <- NULL
-  context_env$epiyear <- NULL
-
-  context_env$semester <- NULL
-
-  context_env$quarter <- NULL
-
-  context_env$ymonth <- NULL
-  context_env$qmonth <- NULL
-
-  context_env$yweek <- NULL
-  context_env$qweek <- NULL
-  context_env$mweek <- NULL
-
-  context_env$day <- NULL
-  context_env$yday <- NULL
-  context_env$mday <- NULL
-  context_env$wday <- NULL
-  context_env$qday <- NULL
-
-  context_env$days_in_year <- NULL
-  context_env$days_in_quarter <- NULL
-  context_env$days_in_month <- NULL
-
-  context_env$size <- NULL
-
-  invisible()
+current_date <- function(env) {
+  env[["date"]]
 }
 
 
-current_date <- function() {
-  context_env[["date"]]
+current_year <- function(env) {
+  env[["year"]]
+}
+
+current_isoyear <- function(env) {
+  env[["isoyear"]]
+}
+
+current_epiyear <- function(env) {
+  env[["epiyear"]]
 }
 
 
-current_year <- function() {
-  context_env[["year"]]
-}
-
-current_isoyear <- function() {
-  context_env[["isoyear"]]
-}
-
-current_epiyear <- function() {
-  context_env[["epiyear"]]
+current_semester <- function(env) {
+  env[["semester"]]
 }
 
 
-current_semester <- function() {
-  context_env[["semester"]]
+current_quarter <- function(env) {
+  env[["quarter"]]
 }
 
 
-current_quarter <- function() {
-  context_env[["quarter"]]
+current_ymonth <- function(env) {
+  env[["ymonth"]]
+}
+
+current_qmonth <- function(env) {
+  env[["qmonth"]]
+}
+
+current_yweek <- function(env) {
+  env[["yweek"]]
+}
+
+current_qweek <- function(env) {
+  env[["qweek"]]
+}
+
+current_mweek <- function(env) {
+  env[["mweek"]]
 }
 
 
-current_ymonth <- function() {
-  context_env[["ymonth"]]
+current_day <- function(env) {
+  env[["day"]]
 }
 
-current_qmonth <- function() {
-  context_env[["qmonth"]]
+current_yday <- function(env) {
+  env[["yday"]]
 }
 
-current_yweek <- function() {
-  context_env[["yweek"]]
+current_mday <- function(env) {
+  env[["mday"]]
 }
 
-current_qweek <- function() {
-  context_env[["qweek"]]
+current_wday <- function(env) {
+  env[["wday"]]
 }
 
-current_mweek <- function() {
-  context_env[["mweek"]]
+current_qday <- function(env) {
+  env[["qday"]]
 }
 
-
-current_day <- function() {
-  context_env[["day"]]
+current_days_in_year <- function(env) {
+  env[["days_in_year"]]
 }
 
-current_yday <- function() {
-  context_env[["yday"]]
+current_days_in_quarter <- function(env) {
+  env[["days_in_quarter"]]
 }
 
-current_mday <- function() {
-  context_env[["mday"]]
-}
-
-current_wday <- function() {
-  context_env[["wday"]]
-}
-
-current_qday <- function() {
-  context_env[["qday"]]
-}
-
-current_days_in_year <- function() {
-  context_env[["days_in_year"]]
-}
-
-current_days_in_quarter <- function() {
-  context_env[["days_in_quarter"]]
-}
-
-current_days_in_month <- function() {
-  context_env[["days_in_month"]]
+current_days_in_month <- function(env) {
+  env[["days_in_month"]]
 }
 
 
-current_size <- function() {
-  context_env[["size"]]
+current_size <- function(env) {
+  env[["size"]]
 }
