@@ -10,6 +10,28 @@ collapse_and_trim <- function(x) {
   glue::glue_collapse(x, sep = ", ", width = 30L)
 }
 
+cast_scalar_integer <- function(x, arg = "x") {
+  x <- vec_cast(x, integer(), x_arg = arg)
+  vec_assert(x, size = 1L)
+  x
+}
+
+test_before <- function(x, value, inclusive) {
+  if (inclusive) {
+    x >= value
+  } else {
+    x > value
+  }
+}
+
+test_after <- function(x, value, inclusive) {
+  if (inclusive) {
+    x <= value
+  } else {
+    x < value
+  }
+}
+
 # ------------------------------------------------------------------------------
 
 month_normalize <- function(x) {
