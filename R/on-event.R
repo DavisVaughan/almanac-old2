@@ -7,14 +7,14 @@
 # set of dates and adjusts them to not fall on any `events` located by the
 # schedule.
 
-# `shift` here has to be a lubridate period. We need to be able to look
-# backwards using the shift to detect if the original date was at the
-# intersection of `x` and `event`. In that case, `shift` was applied to
+# `jump` here has to be a lubridate period. We need to be able to look
+# backwards using the jump to detect if the original date was at the
+# intersection of `x` and `event`. In that case, `jump` was applied to
 # move the date forward.
 
 #' @export
-on_event <- function(x, event, shift) {
-  shift <- check_shift(shift)
+on_event <- function(x, event, jump) {
+  jump <- check_jump(jump)
   assert_event(x, "`x`")
   assert_event(event)
 
@@ -26,48 +26,48 @@ on_event <- function(x, event, shift) {
     # Does the current date lie on an `x` event, but not an `event` event?
     out <- out & not_currently_an_event
 
-    is_event_requiring_shift <- x & event
+    is_event_requiring_jump <- x & event
 
     dates <- current_date(env)
-    dates_unshifted <- dates - shift
+    dates_unjumped <- dates - jump
 
-    env_unshifted <- init_context(dates_unshifted)
+    env_unjumped <- init_context(dates_unjumped)
 
-    # Did the date before the shift lie on an `x` event, and an `event` event?
-    unshifted_dates_required_shift <- event_is_impl(is_event_requiring_shift, env_unshifted)
-    shifted_date_is_event <- not_currently_an_event & unshifted_dates_required_shift
+    # Did the date before the jump lie on an `x` event, and an `event` event?
+    unjumped_dates_required_jump <- event_is_impl(is_event_requiring_jump, env_unjumped)
+    jumped_date_is_event <- not_currently_an_event & unjumped_dates_required_jump
 
-    if (sum(shifted_date_is_event) == 0L) {
+    if (sum(jumped_date_is_event) == 0L) {
       return(out)
     }
 
-    out[shifted_date_is_event] <- TRUE
+    out[jumped_date_is_event] <- TRUE
 
     out
   }
 
   new_composite_event(
-    description = "Shifted event",
+    description = "Jumped event",
     test = test,
     events = list(x),
-    class = "shifted_event"
+    class = "jumped_event"
   )
 }
 
-check_shift <- function(shift) {
-  if (is.character(shift)) {
-    shift <- period(shift)
+check_jump <- function(jump) {
+  if (is.character(jump)) {
+    jump <- period(jump)
   }
 
-  if (!is.period(shift)) {
-    abort("`shift` must be a period.")
+  if (!is.period(jump)) {
+    abort("`jump` must be a period.")
   }
 
-  if (is_subdaily(shift)) {
-    abort("`shift` must not contain any sub-daily components.")
+  if (is_subdaily(jump)) {
+    abort("`jump` must not contain any sub-daily components.")
   }
 
-  shift
+  jump
 }
 
 is_subdaily <- function(x) {

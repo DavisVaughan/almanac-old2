@@ -16,5 +16,7 @@
 #' @importFrom vctrs vec_is
 #' @importFrom vctrs vec_init
 #' @importFrom vctrs vec_arith
+#' @importFrom vctrs vec_slice<-
+#' @importFrom vctrs maybe_lossy_cast
 ## usethis namespace: end
 NULL
