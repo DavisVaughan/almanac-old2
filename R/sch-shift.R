@@ -40,6 +40,16 @@
 #'
 #' @inheritParams sch_adjust
 #'
+#' @examples
+#' # 2019-09-13 is a Friday
+#'
+#' # Note that here we "jump" to Sunday, then adjust, leaving us on Monday
+#' sch_jump("2019-09-13", days(2), on_weekends())
+#'
+#' # Here we step 1 day to Saturday, adjust to Monday,
+#' # then step 1 day to Tuesday
+#' sch_step("2019-09-13", 2, on_weekends())
+#'
 #' @export
 sch_jump <- function(x, jump, schedule, adjustment = days(1)) {
   x <- vec_cast_date(x)

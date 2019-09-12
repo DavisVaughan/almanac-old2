@@ -66,3 +66,14 @@ and no further adjustment is required.
 The second option more naturally lends itself to business logic. Two business
 days from Friday is Tuesday.
 }
+\examples{
+# 2019-09-13 is a Friday
+
+# Note that here we "jump" to Sunday, then adjust, leaving us on Monday
+sch_jump("2019-09-13", days(2), on_weekends())
+
+# Here we step 1 day to Saturday, adjust to Monday,
+# then step 1 day to Tuesday
+sch_step("2019-09-13", 2, on_weekends())
+
+}
