@@ -91,6 +91,49 @@ sched_events <- function(x, schedule) {
   out
 }
 
+#' @export
+sched_adjust <- function(x, schedule, shift) {
+  x <- vec_cast(x, new_date())
+  assert_schedule(schedule)
+  shift <- check_shift(shift)
+
+  # Find initial set of events
+  env <- init_context(x)
+  x_events <- sched_includes_impl(schedule, env)
+  x_pos <- which(x_events)
+
+  # While there are still some events, apply `shift` and recheck
+  while(length(x_pos) != 0L) {
+    x[x_pos] <- shift(x[x_pos])
+    env <- init_context(x[x_pos])
+    x_events <- sched_includes_impl(schedule, env)
+    x_pos <- x_pos[x_events]
+  }
+
+  x
+}
+
+check_shift <- function(shift) {
+  if (is.character(shift)) {
+    shift <- period(shift)
+  }
+
+  if (is.period(shift)) {
+    shifter <- function(x) x + shift
+    return(shifter)
+  }
+
+  if (is_formula(shift, scoped = TRUE, lhs = FALSE)) {
+    shift <- as_function(shift)
+  }
+
+  if (!is_function(shift)) {
+    abort("`shift` must be a period or a function.")
+  }
+
+  shift
+}
+
 # ------------------------------------------------------------------------------
 
 new_schedule <- function(events = list(), ..., class = character()) {
