@@ -91,20 +91,62 @@ sched_events <- function(x, schedule) {
   out
 }
 
+# Days are handled slightly differently. Intuitively, shifting forward 2 business
+# days when you are on a friday is not going to sunday, seeing its a weekend
+# and then rolling to monday. It's more like going forward 1 day, seeing
+# its the weekend, rolling to monday, going forward one more day.
+
 #' @export
-sched_adjust <- function(x, schedule, shift) {
+sched_shift <- function(x, shift, schedule, adjustment) {
   x <- vec_cast(x, new_date())
   assert_schedule(schedule)
   shift <- check_shift(shift)
+  adjustment <- check_adjustment(adjustment)
+
+  n_days <- day(shift)
+  has_days <- (n_days != 0L)
+
+  if (has_days) {
+    day(shift) <- 0L
+  }
+
+  if (has_monthly_or_yearly(shift)) {
+    x <- x + shift
+  }
+
+  if (!has_days) {
+    out <- sched_adjust(x, schedule, adjustment)
+    return(out)
+  }
+
+  one_day <- days(1)
+
+  for (i in seq_len(n_days)) {
+    x <- x + one_day
+    x <- sched_adjust(x, schedule, adjustment)
+  }
+
+  x
+}
+
+has_monthly_or_yearly <- function(x) {
+  sum(abs(month(x)), abs(year(x))) != 0L
+}
+
+#' @export
+sched_adjust <- function(x, schedule, adjustment) {
+  x <- vec_cast(x, new_date())
+  assert_schedule(schedule)
+  adjustment <- check_adjustment(adjustment)
 
   # Find initial set of events
   env <- init_context(x)
   x_events <- sched_includes_impl(schedule, env)
   x_pos <- which(x_events)
 
-  # While there are still some events, apply `shift` and recheck
+  # While there are still some events, apply `adjustment` and recheck
   while(length(x_pos) != 0L) {
-    x[x_pos] <- shift(x[x_pos])
+    x[x_pos] <- adjustment(x[x_pos])
     env <- init_context(x[x_pos])
     x_events <- sched_includes_impl(schedule, env)
     x_pos <- x_pos[x_events]
@@ -113,25 +155,29 @@ sched_adjust <- function(x, schedule, shift) {
   x
 }
 
-check_shift <- function(shift) {
-  if (is.character(shift)) {
-    shift <- period(shift)
+check_adjustment <- function(adjustment) {
+  if (is.character(adjustment)) {
+    adjustment <- period(adjustment)
   }
 
-  if (is.period(shift)) {
-    shifter <- function(x) x + shift
-    return(shifter)
+  if (is.period(adjustment)) {
+    if (is_subdaily(adjustment)) {
+      abort("`adjustment` must not contain any sub-daily components.")
+    }
+
+    adjuster <- function(x) x + adjustment
+    return(adjuster)
   }
 
-  if (is_formula(shift, scoped = TRUE, lhs = FALSE)) {
-    shift <- as_function(shift)
+  if (is_formula(adjustment, scoped = TRUE, lhs = FALSE)) {
+    adjustment <- as_function(adjustment)
   }
 
-  if (!is_function(shift)) {
-    abort("`shift` must be a period or a function.")
+  if (!is_function(adjustment)) {
+    abort("`adjustment` must be a period or a function.")
   }
 
-  shift
+  adjustment
 }
 
 # ------------------------------------------------------------------------------

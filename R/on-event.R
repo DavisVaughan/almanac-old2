@@ -14,7 +14,7 @@
 
 #' @export
 on_event <- function(x, event, shift) {
-  shift <- check_period_shift(shift)
+  shift <- check_shift(shift)
   assert_event(x, "`x`")
   assert_event(event)
 
@@ -54,7 +54,7 @@ on_event <- function(x, event, shift) {
   )
 }
 
-check_period_shift <- function(shift) {
+check_shift <- function(shift) {
   if (is.character(shift)) {
     shift <- period(shift)
   }
@@ -63,5 +63,13 @@ check_period_shift <- function(shift) {
     abort("`shift` must be a period.")
   }
 
+  if (is_subdaily(shift)) {
+    abort("`shift` must not contain any sub-daily components.")
+  }
+
   shift
+}
+
+is_subdaily <- function(x) {
+  sum(abs(hour(x)), abs(minute(x)), abs(second(x))) != 0L
 }
