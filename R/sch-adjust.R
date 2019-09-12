@@ -4,6 +4,12 @@
 #' an `adjustment` whenever a date in `x` is also an event defined by
 #' the `schedule`.
 #'
+#' @details
+#'
+#' `adjustment` is applied repeatedly until the next non-event date is found.
+#' Be careful! This can result in infinite loops with improperly defined
+#' schedules, which are impossible for us to guard against for you.
+#'
 #' @param x `[Date]`
 #'
 #'   A vector of dates.
