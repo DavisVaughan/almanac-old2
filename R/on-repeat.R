@@ -2,7 +2,7 @@
 on_repeat <- function(event, n, since) {
   n <- cast_scalar_integer(n, "n")
 
-  since <- vec_cast(since, new_date())
+  since <- vec_cast_date(since)
   vec_assert(since, size = 1L)
 
   if (is.character(event)) {

@@ -37,7 +37,7 @@ print.schedule <- function(x, ...) {
 
 #' @export
 sched_includes <- function(x, schedule) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   assert_schedule(schedule)
 
   env <- init_context(x)
@@ -55,8 +55,8 @@ sched_includes_impl <- function(schedule, env) {
 sched_generate <- function(from, to, schedule) {
   assert_schedule(schedule)
 
-  from <- vec_cast(from, new_date(), x_arg = "from")
-  to <- vec_cast(to, new_date(), x_arg = "to")
+  from <- vec_cast_date(from, x_arg = "from")
+  to <- vec_cast_date(to, x_arg = "to")
 
   dates <- seq(from, to, by = 1)
 
@@ -65,7 +65,7 @@ sched_generate <- function(from, to, schedule) {
 
 #' @export
 sched_events <- function(x, schedule) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   assert_schedule(schedule)
 
   events <- schedule$events
@@ -98,7 +98,7 @@ sched_events <- function(x, schedule) {
 
 #' @export
 sched_shift <- function(x, shift, schedule, adjustment) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   assert_schedule(schedule)
   shift <- check_shift(shift)
   adjustment <- check_adjustment(adjustment)
@@ -135,7 +135,7 @@ has_monthly_or_yearly <- function(x) {
 
 #' @export
 sched_adjust <- function(x, schedule, adjustment) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   assert_schedule(schedule)
   adjustment <- check_adjustment(adjustment)
 

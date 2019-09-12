@@ -1,6 +1,6 @@
 #' @export
 before_date <- function(x, inclusive = FALSE) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   vec_assert(x, size = 1L)
 
   test <- function(env) {

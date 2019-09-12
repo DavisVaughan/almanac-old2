@@ -1,9 +1,9 @@
 #' @export
 between_dates <- function(x, y) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
   vec_assert(x, size = 1L)
 
-  y <- vec_cast(y, new_date())
+  y <- vec_cast_date(y)
   vec_assert(y, size = 1L)
 
   if (x > y) {

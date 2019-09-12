@@ -32,6 +32,22 @@ test_after <- function(x, value, inclusive) {
   }
 }
 
+# Safer date cast until:
+# https://github.com/r-lib/vctrs/issues/549
+vec_cast_date <- function(x, x_arg = "x") {
+  if (is.character(x)) {
+    vec_cast_date_character(x, x_arg)
+  } else {
+    vec_cast(x, new_date(), x_arg = x_arg)
+  }
+}
+
+vec_cast_date_character <- function(x, x_arg) {
+  to <- new_date()
+  out <- vec_cast(x, to, x_arg = x_arg)
+  maybe_lossy_cast(out, x, to, lossy = is.na(out) & !is.na(x))
+}
+
 # ------------------------------------------------------------------------------
 
 month_normalize <- function(x) {

@@ -1,6 +1,6 @@
 #' @export
 on_date <- function(x) {
-  x <- vec_cast(x, new_date())
+  x <- vec_cast_date(x)
 
   test <- function(env) {
     vec_in(current_date(env), x)
