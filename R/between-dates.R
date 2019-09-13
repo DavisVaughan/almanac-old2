@@ -1,3 +1,4 @@
+#' @rdname event-date
 #' @export
 between_dates <- function(x, y) {
   x <- vec_cast_date(x)

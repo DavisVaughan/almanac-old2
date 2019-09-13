@@ -1,3 +1,4 @@
+#' @rdname event-date
 #' @export
 before_date <- function(x, inclusive = FALSE) {
   x <- vec_cast_date(x)

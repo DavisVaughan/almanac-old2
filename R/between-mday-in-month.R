@@ -1,3 +1,4 @@
+#' @rdname event-mday-in-month
 #' @export
 between_mdays_in_months <- function(x_month, x_mday, y_month, y_mday) {
   x_month <- month_normalize(x_month)

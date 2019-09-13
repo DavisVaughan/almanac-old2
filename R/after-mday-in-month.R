@@ -1,3 +1,4 @@
+#' @rdname event-mday-in-month
 #' @export
 after_mday_in_month <- function(month, mday, inclusive = FALSE) {
   month <- month_normalize(month)
