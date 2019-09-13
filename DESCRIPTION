@@ -26,3 +26,5 @@ Suggests:
     covr
 Depends: 
     R (>= 3.2)
+Remotes:
+    r-lib/vctrs
