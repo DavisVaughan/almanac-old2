@@ -28,6 +28,11 @@ event_invert(x)
 
 \method{!}{event}(x)
 }
+\arguments{
+\item{x, y, e1, e2}{\code{[event]}
+
+Events to perform a set operation on.}
+}
 \description{
 Set operations between events are what make the grammar of schedules so
 powerful. For example, \code{on_mday(25) & on_wday("Mon")} takes the

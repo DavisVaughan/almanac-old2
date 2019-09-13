@@ -19,6 +19,10 @@
 #' - `!` / `event_invert()`: Invert an event, creating a
 #'   new event that occurs when `x` did not occur.
 #'
+#' @param x,y,e1,e2 `[event]`
+#'
+#'    Events to perform a set operation on.
+#'
 #' @name event-sets
 NULL
 
