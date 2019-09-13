@@ -245,6 +245,10 @@ days_in_month2 <- function(x) {
 #'
 #' - `on_wday()`: Is the date on the `x`-th day of the week?
 #'
+#' - `on_weekends()`: Is the date on a weekend?
+#'
+#' - `on_weekdays()`: Is the date on a weekday?
+#'
 #' - `before_wday()`: Is the date before the `x`-th day of the week?
 #'
 #' - `after_wday()`: Is the date after the `x`-th day of the week?
@@ -303,11 +307,13 @@ on_wday <- function(x, start = TRUE) {
   )
 }
 
+#' @rdname event-wday
 #' @export
 on_weekends <- function() {
   on_wday(c(1L, 7L))
 }
 
+#' @rdname event-wday
 #' @export
 on_weekdays <- function() {
   on_wday(2:6)

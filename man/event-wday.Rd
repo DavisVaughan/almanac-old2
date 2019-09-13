@@ -7,6 +7,8 @@
 \alias{between_wdays}
 \alias{event-wday}
 \alias{on_wday}
+\alias{on_weekends}
+\alias{on_weekdays}
 \title{Events related to days of the week}
 \usage{
 after_wday(x, inclusive = FALSE, start = TRUE)
@@ -16,6 +18,10 @@ before_wday(x, inclusive = FALSE, start = TRUE)
 between_wdays(x, y, start = TRUE)
 
 on_wday(x, start = TRUE)
+
+on_weekends()
+
+on_weekdays()
 }
 \arguments{
 \item{x}{\code{[integer(1) / character(1)]}
@@ -41,6 +47,8 @@ weekday string like \code{"Tuesday"}, or an abbreviation like \code{"Tues"}.}
 \description{
 \itemize{
 \item \code{on_wday()}: Is the date on the \code{x}-th day of the week?
+\item \code{on_weekends()}: Is the date on a weekend?
+\item \code{on_weekdays()}: Is the date on a weekday?
 \item \code{before_wday()}: Is the date before the \code{x}-th day of the week?
 \item \code{after_wday()}: Is the date after the \code{x}-th day of the week?
 \item \code{between_wdays()}: Is the date between the \code{x}-th and \code{y}-th days of
