@@ -1,3 +1,8 @@
+#' Create a new schedule
+#'
+#' `schedule()` creates a new empty schedule. Add events to the schedule with
+#' [sch_add()].
+#'
 #' @export
 schedule <- function() {
   new_schedule()
@@ -53,22 +58,18 @@ sch_n_events <- function(x) {
 # from an event to a schedule, but this is really useful for the `sch_`
 # functions that require a `schedule`.
 
-#' @export
 as_schedule <- function(x, ...) {
   UseMethod("as_schedule")
 }
 
-#' @export
 as_schedule.default <- function(x, ...) {
   glubort("Cannot convert object of type {class(x)[1]} to a schedule.")
 }
 
-#' @export
 as_schedule.schedule <- function(x, ...) {
   x
 }
 
-#' @export
 as_schedule.event <- function(x, name = NULL, ...) {
   if (is.null(name)) {
     name <- as.character(x$description)
