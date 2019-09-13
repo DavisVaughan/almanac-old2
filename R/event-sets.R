@@ -1,3 +1,28 @@
+#' Combine events
+#'
+#' @description
+#'
+#' Set operations between events are what make the grammar of schedules so
+#' powerful. For example, `on_mday(25) & on_wday("Mon")` takes the
+#' _intersection_ of these two events, resulting in a new event that only occurs
+#' when the 25th day of the month is also a Monday.
+#'
+#' - `&` / `event_intersect()`: Take the intersection of two events, creating a
+#'   new event that occurs when both `x` and `y` occured.
+#'
+#' - `|` / `event_union()`: Take the union of two events, creating a
+#'   new event that occurs when either `x` or `y` occured.
+#'
+#' - `-` / `event_difference()`: Take the difference of two events, creating a
+#'   new event that occurs when `x` occured, but `y` did not.
+#'
+#' - `!` / `event_invert()`: Invert an event, creating a
+#'   new event that occurs when `x` did not occur.
+#'
+#' @name event-sets
+NULL
+
+#' @rdname event-sets
 #' @export
 event_intersect <- function(x, y) {
   assert_event(x, arg = "`x`")
@@ -18,6 +43,7 @@ event_intersect <- function(x, y) {
   )
 }
 
+#' @rdname event-sets
 #' @export
 event_union <- function(x, y) {
   assert_event(x, arg = "`x`")
@@ -38,6 +64,7 @@ event_union <- function(x, y) {
   )
 }
 
+#' @rdname event-sets
 #' @export
 event_diff <- function(x, y) {
   assert_event(x, arg = "`x`")
@@ -55,6 +82,7 @@ event_diff <- function(x, y) {
   )
 }
 
+#' @rdname event-sets
 #' @export
 event_invert <- function(x) {
   assert_event(x, arg = "`x`")
@@ -93,16 +121,19 @@ combine_events <- function(x, y, class) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-sets
 #' @export
 `&.event` <- function(e1, e2) {
   vec_arith("&", e1, e2)
 }
 
+#' @rdname event-sets
 #' @export
 `|.event` <- function(e1, e2) {
   vec_arith("|", e1, e2)
 }
 
+#' @rdname event-sets
 #' @export
 `-.event` <- function(e1, e2) {
   if (missing(e2)) {
@@ -112,6 +143,7 @@ combine_events <- function(x, y, class) {
   }
 }
 
+#' @rdname event-sets
 #' @export
 `!.event` <- function(x) {
   vec_arith("!", x, vctrs::MISSING())
