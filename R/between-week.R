@@ -16,7 +16,7 @@ between_yweeks <- function(x, y, start = TRUE) {
   before <- before_yweek(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {
@@ -46,7 +46,7 @@ between_qweeks <- function(x, y, start = TRUE) {
   before <- before_qweek(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {
@@ -76,7 +76,7 @@ between_mweeks <- function(x, y, start = TRUE) {
   before <- before_mweek(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {

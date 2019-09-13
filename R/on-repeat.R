@@ -23,7 +23,7 @@ on_repeat <- function(event, n, since) {
 
     if (is_event_object(event)) {
       dates <- seq(since, to, by = "day")
-      dates <- dates[event_is(dates, event)]
+      dates <- dates[event_in(dates, event)]
     } else {
       since_to <- interval(since, to)
       num_periods <- floor(since_to / event)

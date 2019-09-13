@@ -13,7 +13,7 @@ between_mdays_in_months <- function(x_month, x_mday, y_month, y_mday) {
   before <- before_mday_in_month(y_month, y_mday, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(

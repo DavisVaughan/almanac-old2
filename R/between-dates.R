@@ -14,7 +14,7 @@ between_dates <- function(x, y) {
   before <- before_date(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(

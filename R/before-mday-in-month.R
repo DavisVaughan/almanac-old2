@@ -31,7 +31,7 @@ before_mday_in_month <- function(month, mday, inclusive = FALSE) {
   event_is_before_mday_in_month <- strictly_before_ymonth | in_ymonth_and_before_mday
 
   test <- function(env) {
-    event_is_impl(event_is_before_mday_in_month, env)
+    event_in_impl(event_is_before_mday_in_month, env)
   }
 
   new_event(

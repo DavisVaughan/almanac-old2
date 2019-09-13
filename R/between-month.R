@@ -19,7 +19,7 @@ between_ymonths <- function(x, y) {
   before <- before_ymonth(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(
@@ -46,7 +46,7 @@ between_qmonths <- function(x, y) {
   before <- before_qmonth(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(

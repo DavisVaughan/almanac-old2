@@ -10,7 +10,7 @@ sch_retrieve <- function(x, schedule) {
 
   env <- init_context(x)
 
-  lst_of_results <- map(events, event_is_impl, env = env)
+  lst_of_results <- map(events, event_in_impl, env = env)
 
   out <- vec_init(list(), n_x)
   locs <- vec_init(logical(), n_events)

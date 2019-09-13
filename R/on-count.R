@@ -22,7 +22,7 @@ on_count <- function(event, n, within = "month") {
     for (i in seq_len(n_unique)) {
       id <- ids[[i]]
       range <- seq(period_start[i], period_end[i], "day")
-      result <- event_is(range, event)
+      result <- event_in(range, event)
       result <- which(result)
 
       if (length(result) < n) {

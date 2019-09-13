@@ -19,9 +19,9 @@ on_event <- function(x, event, jump) {
   assert_event(event)
 
   test <- function(env) {
-    out <- event_is_impl(x, env)
+    out <- event_in_impl(x, env)
 
-    not_currently_an_event <- event_is_impl(!event, env)
+    not_currently_an_event <- event_in_impl(!event, env)
 
     # Does the current date lie on an `x` event, but not an `event` event?
     out <- out & not_currently_an_event
@@ -34,7 +34,7 @@ on_event <- function(x, event, jump) {
     env_unjumped <- init_context(dates_unjumped)
 
     # Did the date before the jump lie on an `x` event, and an `event` event?
-    unjumped_dates_required_jump <- event_is_impl(is_event_requiring_jump, env_unjumped)
+    unjumped_dates_required_jump <- event_in_impl(is_event_requiring_jump, env_unjumped)
     jumped_date_is_event <- not_currently_an_event & unjumped_dates_required_jump
 
     if (sum(jumped_date_is_event) == 0L) {

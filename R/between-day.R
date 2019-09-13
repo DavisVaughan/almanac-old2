@@ -16,7 +16,7 @@ between_ydays <- function(x, y, start = TRUE) {
   before <- before_yday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {
@@ -46,7 +46,7 @@ between_qdays <- function(x, y, start = TRUE) {
   before <- before_qday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {
@@ -76,7 +76,7 @@ between_mdays <- function(x, y, start = TRUE) {
   before <- before_mday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {
@@ -109,7 +109,7 @@ between_wdays <- function(x, y, start = TRUE) {
   before <- before_wday(y, inclusive = TRUE, start = start)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   if (start) {

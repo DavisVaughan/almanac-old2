@@ -11,5 +11,5 @@ sch_in <- function(x, schedule) {
 sch_in_impl <- function(schedule, env) {
   events <- schedule$events
   event <- reduce(events, event_union)
-  event_is_impl(event, env)
+  event_in_impl(event, env)
 }

@@ -21,7 +21,7 @@ after_mday_in_month <- function(month, mday, inclusive = FALSE) {
   event_is_after_mday_in_month <- strictly_after_ymonth | in_ymonth_and_after_mday
 
   test <- function(env) {
-    event_is_impl(event_is_after_mday_in_month, env)
+    event_in_impl(event_is_after_mday_in_month, env)
   }
 
   new_event(

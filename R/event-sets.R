@@ -6,7 +6,7 @@ event_intersect <- function(x, y) {
   events <- combine_events(x, y, class = "intersection_event")
 
   test <- function(env) {
-    results <- map(events, event_is_impl, env = env)
+    results <- map(events, event_in_impl, env = env)
     reduce(results, `&`)
   }
 
@@ -26,7 +26,7 @@ event_union <- function(x, y) {
   events <- combine_events(x, y, class = "union_event")
 
   test <- function(env) {
-    results <- map(events, event_is_impl, env = env)
+    results <- map(events, event_in_impl, env = env)
     reduce(results, `|`)
   }
 
@@ -44,7 +44,7 @@ event_diff <- function(x, y) {
   assert_event(y, arg = "`y`")
 
   test <- function(env) {
-    event_is_impl(x, env) & !event_is_impl(y, env)
+    event_in_impl(x, env) & !event_in_impl(y, env)
   }
 
   new_composite_event(
@@ -60,7 +60,7 @@ event_invert <- function(x) {
   assert_event(x, arg = "`x`")
 
   test <- function(env) {
-    !event_is_impl(x, env)
+    !event_in_impl(x, env)
   }
 
   new_composite_event(

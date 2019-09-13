@@ -11,7 +11,7 @@ between_years <- function(x, y) {
   before <- before_year(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(
@@ -35,7 +35,7 @@ between_isoyears <- function(x, y) {
   before <- before_isoyear(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(
@@ -59,7 +59,7 @@ between_epiyears <- function(x, y) {
   before <- before_epiyear(y, inclusive = TRUE)
 
   test <- function(env) {
-    event_is_impl(after, env) & event_is_impl(before, env)
+    event_in_impl(after, env) & event_in_impl(before, env)
   }
 
   new_event(
