@@ -20,11 +20,14 @@ A schedule or event.}
 An adjustment to make whenever a date falls on an event.
 
 If this is a lubridate period object, such as \code{\link[lubridate:days]{lubridate::days()}},
-or an integer, then the adjustment is applied as \code{x + adjustment}.
+or an integer, then the adjustment is repeatedly applied as
+\code{x + adjustment} until the next non-event date is found.
 
 If this is a function or formula (i.e., a lambda function), then it
-should accept 1 argument, the dates to adjust, and should return a \code{Date}
-vector of the same size as the original input.}
+should accept 2 arguments, the dates to adjust and the original \code{schedule},
+and should return a \code{Date} vector of the same size as the original input
+containing the adjusted dates. See the functions on the help page for
+\code{\link[=adj_following]{adj_following()}} for some examples.}
 }
 \description{
 \code{sch_adjust()} takes an existing vector of dates and shifts it by applying
@@ -32,9 +35,16 @@ an \code{adjustment} whenever a date in \code{x} is also an event defined by
 the \code{schedule}.
 }
 \details{
-\code{adjustment} is applied repeatedly until the next non-event date is found.
-Be careful! This can result in infinite loops with improperly defined
-schedules, which are impossible for us to guard against for you.
+Internally, a period / integer \code{adjustment} is applied repeatedly until the
+next non-event date is found. Be careful! This can result in infinite loops
+with improperly defined schedules, which are impossible for us to guard
+against for you.
+
+A custom \code{adjustment} function should expect to accept the dates
+requiring adjustment, and should \emph{completely} adjust them to the next
+non-event date. It is the responsibility of the \code{adjustment} function to
+ensure that the date resulting from the adjustment is not also an
+event date.
 }
 \examples{
 library(lubridate, warn.conflicts = FALSE)
@@ -46,9 +56,26 @@ sch_adjust("2019-01-01", on_mday(1))
 # The adjustment could also be backwards
 sch_adjust("2019-01-01", on_mday(1), adjustment = -days(1))
 
-# Adjustments are applied repeatedly until the next non-event can be found
-# Here, 2019-01-01 is an event, so we move to 2019-01-02, but that is an
-# event too, so we move to 2019-01-03
+# Period adjustments are applied repeatedly until the next non-event can
+# be found. Here, 2019-01-01 is an event, so we move to 2019-01-02, but
+# that is an event too, so we move to 2019-01-03.
 sch_adjust("2019-01-01", on_mday(1:2))
+
+# ---------------------------------------------------------------------------
+# Custom adjustments
+
+# Financial business logic might require special rules, a few of which are
+# encoded in the `adj_*()` functions. For example, `adj_modified_following()`
+# will use an adjustment of `+days(1)`, unless making that adjustment would
+# place you past the last day in the month, in which case an adjustment of
+# `-days(1)` is made instead.
+sch_adjust("2019-01-31", on_mday(31), adj_modified_following)
+
+# `adj_nearest()` looks to the closest non-event date. Here, the 13th
+# is closer than the 18th, so it is chosen as the adjustment date.
+sch_adjust("2019-01-15", on_mday(c(14, 15, 16, 17)), adj_nearest)
+
+# When the distance is the same, the following date is chosen
+sch_adjust("2019-01-15", on_mday(c(14, 15, 16)), adj_nearest)
 
 }

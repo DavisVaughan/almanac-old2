@@ -29,11 +29,14 @@ A schedule or event.}
 An adjustment to make whenever a date falls on an event.
 
 If this is a lubridate period object, such as \code{\link[lubridate:days]{lubridate::days()}},
-or an integer, then the adjustment is applied as \code{x + adjustment}.
+or an integer, then the adjustment is repeatedly applied as
+\code{x + adjustment} until the next non-event date is found.
 
 If this is a function or formula (i.e., a lambda function), then it
-should accept 1 argument, the dates to adjust, and should return a \code{Date}
-vector of the same size as the original input.}
+should accept 2 arguments, the dates to adjust and the original \code{schedule},
+and should return a \code{Date} vector of the same size as the original input
+containing the adjusted dates. See the functions on the help page for
+\code{\link[=adj_following]{adj_following()}} for some examples.}
 
 \item{n}{\code{[integer(1)]}
 

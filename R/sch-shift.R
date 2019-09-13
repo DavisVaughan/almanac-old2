@@ -55,7 +55,6 @@ sch_jump <- function(x, jump, schedule, adjustment = days(1)) {
   x <- vec_cast_date(x)
   schedule <- as_schedule(schedule)
   jump <- check_jump(jump)
-  adjustment <- check_adjustment(adjustment)
 
   x <- x + jump
   x <- sch_adjust(x, schedule, adjustment)
@@ -78,11 +77,13 @@ sch_step <- function(x, n, schedule) {
     one_day <- -1L # days(-1)
   }
 
+  one_day_adjuster <- make_adjuster(one_day)
+
   n <- abs(n)
 
   for (i in seq_len(n)) {
     x <- x + one_day
-    x <- sch_adjust(x, schedule, one_day)
+    x <- sch_adjust(x, schedule, one_day_adjuster)
   }
 
   x
