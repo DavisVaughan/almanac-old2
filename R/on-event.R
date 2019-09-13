@@ -55,17 +55,17 @@ on_event <- function(x, event, jump) {
 }
 
 check_jump <- function(jump) {
-  if (is.double(jump) || is.integer(jump)) {
-    jump <- vec_cast(jump, integer())
-    jump <- days(jump)
-    return(jump)
-  }
-
   if (is.character(jump)) {
     jump <- period(jump)
   }
 
   if (!is.period(jump)) {
+    if (is.double(jump) || is.integer(jump)) {
+      jump <- vec_cast(jump, integer())
+      jump <- days(jump)
+      return(jump)
+    }
+
     abort("`jump` must be a period or integer.")
   }
 
