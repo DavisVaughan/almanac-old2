@@ -1,5 +1,4 @@
-#' @export
-new_event <- function(description = "An event.",
+new_event <- function(description = "An event",
                       test = NULL,
                       ...,
                       class = character()) {
@@ -56,8 +55,7 @@ assert_event <- function(x, arg = "`event`") {
 # Uses the "composite" pattern. `composite_event` is an `event` that holds other
 # `event`s. The `test` function will use them to compute a composite answer.
 
-#' @export
-new_composite_event <- function(description = "A composite event.",
+new_composite_event <- function(description = "A composite event",
                                 test = NULL,
                                 events = list(),
                                 ...,
