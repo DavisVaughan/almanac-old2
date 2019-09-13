@@ -1,0 +1,212 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# almanac
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+almanac implements a *grammar of schedules*, providing the fundamental
+rules and concepts that allow you to build up a schedule of “events”,
+such as holidays or weekends. After creating a schedule from the
+fundamental rules, it can be used to:
+
+  - Generate dates that fall in the schedule.
+
+  - Determine if a date is in the schedule or not.
+
+  - Shift a sequence of dates, stepping over or avoiding dates that fall
+    in the schedule.
+
+<!-- end list -->
+
+``` r
+library(magrittr)
+library(almanac)
+```
+
+## Installation
+
+You can NOT install the released version of almanac from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+# NO! install.packages("almanac")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("DavisVaughan/almanac3")
+```
+
+## Events
+
+An event is a set of rules that define a reoccuring date, such as New
+Years Day, or the third Monday in November.
+
+Events are created from a family of related functions that all start
+with one of:
+
+  - `on_*()`
+
+  - `before_*()`
+
+  - `after_*()`
+
+  - `between_*()`
+
+For example, `on_mday(25)` defines the reoccuring event of the 25th day
+of the month.
+
+``` r
+on_25th <- on_mday(25)
+on_25th
+#> <On day of the month: 25>
+```
+
+To determine if a date falls on an event, use `event_in()`.
+
+``` r
+event_in("2019-01-25", on_25th)
+#> [1] TRUE
+
+event_in("2019-01-23", on_25th)
+#> [1] FALSE
+
+event_in("2019-02-25", on_25th)
+#> [1] TRUE
+```
+
+Events can be combined by taking an intersection, a union, or a
+difference. Here, we take an intersection, which should be read as “the
+25th of the month and the month of November” to define the event of
+November 25th.
+
+``` r
+event_intersect(on_25th, on_month("Nov"))
+#> <Intersection>
+#>  - <On day of the month: 25>
+#>  - <On month of the year: November>
+```
+
+It’s often easier to use the shortcut operators `&`, `|`, and `-`.
+
+``` r
+on_nov_25th <- on_25th & on_month("Nov")
+
+on_nov_25th
+#> <Intersection>
+#>  - <On day of the month: 25>
+#>  - <On month of the year: November>
+```
+
+``` r
+event_in("2019-11-24", on_nov_25th)
+#> [1] FALSE
+
+event_in("2019-11-25", on_nov_25th)
+#> [1] TRUE
+```
+
+## Schedules
+
+A schedule is a collection of events. You can create them by starting
+with an empty `schedule()`, and then adding events with `sch_add()`.
+
+``` r
+# Labor Day = First Monday in September
+on_labor_day <- on_month("Sep") & on_wday("Mon") & on_mweek(1)
+
+# Christmas = December 25th
+on_christmas <- on_month("Dec") & on_mday(25)
+
+sch <- schedule() %>%
+  sch_add(on_labor_day, "Labor Day") %>%
+  sch_add(on_christmas, "Christmas")
+
+sch
+#> <Schedule [2 event(s)]>
+#>  - Labor Day
+#>  - Christmas
+```
+
+Check if a date is in a schedule with `sch_in()`.
+
+``` r
+sch_in("2019-01-01", sch)
+#> [1] FALSE
+
+sch_in("2019-12-25", sch)
+#> [1] TRUE
+```
+
+Generate dates in the schedule with `sch_seq()`.
+
+``` r
+sch_seq("2018-01-01", "2020-12-31", sch)
+#> [1] "2018-09-03" "2018-12-25" "2019-09-02" "2019-12-25" "2020-09-07"
+#> [6] "2020-12-25"
+```
+
+If you have an existing set of dates, you can adjust them relative to
+the schedule with `sch_adjust()`. If a date happens to fall on an event
+in the schedule, then an `adjustment` is applied repeatedly until the
+next non-event date is found.
+
+``` r
+x <- as.Date("2019-09-01") + 0:3
+x
+#> [1] "2019-09-01" "2019-09-02" "2019-09-03" "2019-09-04"
+
+# Labor day is the 2nd of Sept in 2019
+x[sch_in(x, sch)]
+#> [1] "2019-09-02"
+
+# Every date is left alone except 2019-09-02. The adjustment is applied as
+# `x + adjustment` to get to 2019-09-03.
+sch_adjust(x, sch, adjustment = days(1))
+#> [1] "2019-09-01" "2019-09-03" "2019-09-03" "2019-09-04"
+```
+
+You can *shift* a set of dates relative to the schedule with
+`sch_jump()` and `sch_step()`.
+
+Jumping applies a period shift all at once. You start at `x` and end at
+`x + jump`. If, after the jump, the date you landed on is an event, an
+adjustment is made to find the next non-event date.
+
+``` r
+christmas_eve <- as.Date("2019-12-24")
+
+# Jump forward 1 day - Lands on the 25th, Christmas
+# An adjustment of 1 day is made to shift to the 26th
+sch_jump(christmas_eve, jump = days(1), schedule = sch, adjustment = days(1))
+#> [1] "2019-12-26"
+
+# Jump forward 2 days - Lands on the 26th
+# No adjustment is required
+sch_jump(christmas_eve, jump = days(2), schedule = sch, adjustment = days(1))
+#> [1] "2019-12-26"
+```
+
+In the above example, jumping forward 2 days might not have the intended
+result if you wanted to look forward “2 business days”. In those cases,
+use `sch_step()`. This steps 1 day at a time, and after each step checks
+if the date you are on is an event. If it is, it applies the
+`adjustment`, then continues to the next step.
+
+``` r
+# "2 business days from now"
+
+# Step forward 1 day - Lands on the 25th
+# An adjustment of 1 day is made to shift to the 26th
+# Step forward 1 day - Lands on the 27th
+# No adjustment is required
+sch_step("2019-12-24", 2, sch)
+#> [1] "2019-12-27"
+```
