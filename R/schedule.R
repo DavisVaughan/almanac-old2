@@ -43,6 +43,12 @@ new_schedule <- function(events = list(), ..., class = character()) {
 
 # ------------------------------------------------------------------------------
 
+sch_n_events <- function(x) {
+  length(x$events)
+}
+
+# ------------------------------------------------------------------------------
+
 # Should we export this? I don't typically want to encourage going directly
 # from an event to a schedule, but this is really useful for the `sch_`
 # functions that require a `schedule`.
