@@ -10,6 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Todo
 
 - How to do "5th tuesday or thursday of the month"?
+  - Figure out what to do with `on_count` and `on_repeat`
+- Does `on_wday()` really need `start`?
+- Easter Sunday rules
+- Better support for lubridate `week_start`
+- Supply helpers for adjustment rules
 
 ## On functions
 
