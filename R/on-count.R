@@ -1,4 +1,3 @@
-#' @export
 on_count <- function(event, n, within = "month") {
   assert_event(event)
 

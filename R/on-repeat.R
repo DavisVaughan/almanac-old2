@@ -1,4 +1,3 @@
-#' @export
 on_repeat <- function(event, n, since) {
   n <- cast_scalar_integer(n, "n")
 
