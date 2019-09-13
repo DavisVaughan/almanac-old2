@@ -1,3 +1,29 @@
+# TODO - Maybe a second function that only returns the _first_ event found, and
+# returns a character vector of event names? If no event occured on that date
+# it would return `NA_character_`.
+
+#' What events does `x` fall on?
+#'
+#' `sch_retrieve()` returns the events that `x` falls on in the `schedule`.
+#'
+#' @param x `[Date]`
+#'
+#'    A vector of dates.
+#'
+#' @param schedule `[schedule]`
+#'
+#'    A schedule.
+#'
+#' @examples
+#' on_25th <- on_mday(25)
+#' on_dec <- on_month("Dec")
+#'
+#' sch <- schedule()
+#' sch <- sch_add(sch, on_25th, "twenty_fifth")
+#' sch <- sch_add(sch, on_dec, "december")
+#'
+#' sch_retrieve(c("2019-01-01", "2019-01-25", "2019-12-25"), sch)
+#'
 #' @export
 sch_retrieve <- function(x, schedule) {
   x <- vec_cast_date(x)
