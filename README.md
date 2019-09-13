@@ -210,3 +210,15 @@ if the date you are on is an event. If it is, it applies the
 sch_step("2019-12-24", 2, sch)
 #> [1] "2019-12-27"
 ```
+
+## Acknowledgements
+
+almanac is a combination of ideas from the date library of
+[QuantLib](https://github.com/lballabio/QuantLib) with the great package
+from James Laird-Smith, [gs](https://github.com/jameslairdsmith/gs).
+Both gs and almanac are based on a [paper written by Martin
+Fowler](https://martinfowler.com/apsupp/recurring.pdf), which outlines
+the grammar for reoccuring events and schedules.
+
+The hope is that gs and almanac will merge, as they currently overlap a
+large amount.
