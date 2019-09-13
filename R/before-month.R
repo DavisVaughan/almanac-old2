@@ -1,8 +1,10 @@
+#' @rdname event-ymonth
 #' @export
 before_month <- function(x, inclusive = FALSE) {
   before_ymonth(x, inclusive)
 }
 
+#' @rdname event-ymonth
 #' @export
 before_ymonth <- function(x, inclusive = FALSE) {
   x <- month_normalize(x)
@@ -27,6 +29,7 @@ before_ymonth <- function(x, inclusive = FALSE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qmonth
 #' @export
 before_qmonth <- function(x, inclusive = FALSE) {
   x <- cast_scalar_integer(x)

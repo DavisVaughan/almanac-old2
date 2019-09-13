@@ -1,8 +1,10 @@
+#' @rdname event-yday
 #' @export
 after_day <- function(x, inclusive = FALSE, start = TRUE) {
   after_yday(x, inclusive)
 }
 
+#' @rdname event-yday
 #' @export
 after_yday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -37,6 +39,7 @@ after_yday <- function(x, inclusive = FALSE, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qday
 #' @export
 after_qday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -67,6 +70,7 @@ after_qday <- function(x, inclusive = FALSE, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-mday
 #' @export
 after_mday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -101,6 +105,7 @@ after_mday <- function(x, inclusive = FALSE, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-wday
 #' @export
 after_wday <- function(x, inclusive = FALSE, start = TRUE) {
   x <- wday_normalize(x)

@@ -1,8 +1,10 @@
+#' @rdname event-yday
 #' @export
 between_days <- function(x, y, start = TRUE) {
   between_ydays(x, y)
 }
 
+#' @rdname event-yday
 #' @export
 between_ydays <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -33,6 +35,7 @@ between_ydays <- function(x, y, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qday
 #' @export
 between_qdays <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -63,6 +66,7 @@ between_qdays <- function(x, y, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-mday
 #' @export
 between_mdays <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -93,6 +97,7 @@ between_mdays <- function(x, y, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-wday
 #' @export
 between_wdays <- function(x, y, start = TRUE) {
   x <- wday_normalize(x)

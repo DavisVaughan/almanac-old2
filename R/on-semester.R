@@ -1,3 +1,17 @@
+#' Events related to semesters
+#'
+#' @description
+#'
+#' - `on_semester()`: Is the date on the `x`-th semester?
+#'
+#' @param x `[integer]`
+#'
+#'    A semester to mark as an event.
+#'
+#' @name event-semester
+NULL
+
+#' @rdname event-semester
 #' @export
 on_semester <- function(x) {
   x <- vec_cast(x, integer())

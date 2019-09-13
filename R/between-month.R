@@ -1,8 +1,10 @@
+#' @rdname event-ymonth
 #' @export
 between_months <- function(x, y) {
   between_ymonths(x, y)
 }
 
+#' @rdname event-ymonth
 #' @export
 between_ymonths <- function(x, y) {
   x <- month_normalize(x)
@@ -30,6 +32,7 @@ between_ymonths <- function(x, y) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qmonth
 #' @export
 between_qmonths <- function(x, y) {
   x <- month_normalize(x)

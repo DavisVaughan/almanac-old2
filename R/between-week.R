@@ -1,8 +1,10 @@
+#' @rdname event-yweek
 #' @export
-between_weeks <- function(x, y) {
-  between_yweeks(x, y)
+between_weeks <- function(x, y, start = TRUE) {
+  between_yweeks(x, y, start)
 }
 
+#' @rdname event-yweek
 #' @export
 between_yweeks <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -33,6 +35,7 @@ between_yweeks <- function(x, y, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qweek
 #' @export
 between_qweeks <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -63,6 +66,7 @@ between_qweeks <- function(x, y, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-mweek
 #' @export
 between_mweeks <- function(x, y, start = TRUE) {
   x <- cast_scalar_integer(x)

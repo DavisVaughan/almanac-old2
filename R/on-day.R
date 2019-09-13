@@ -1,8 +1,50 @@
+#' Events related to days of the year
+#'
+#' @description
+#'
+#' - `on_day()` / `on_yday()`: Is the date on the `x`-th day of the year?
+#'
+#' - `before_day()` / `before_yday()`: Is the date before the `x`-th day of
+#'   the year?
+#'
+#' - `after_day()` / `after_yday()`: Is the date after the `x`-th day of
+#'   the year?
+#'
+#' - `between_days()` / `between_ydays()`: Is the date between the `x`-th and
+#'   `y`-th days of the year?
+#'
+#' @details
+#'
+#' `on_day()` is an alias of the less common, but more verbose, `on_yday()`.
+#'
+#' @param x `[integer(1)]`
+#'
+#'    A day of the year to mark as an event. For `on_day()`, this is also
+#'    allowed to be a vector.
+#'
+#' @param y `[integer(1)]`
+#'
+#'    A day of the year to mark as an event.
+#'
+#' @param inclusive `[logical(1)]`
+#'
+#'    Should `x` count as an event?
+#'
+#' @param start `[logical(1)]`
+#'
+#'    Should counting start from the beginning of the year? If `FALSE`, the
+#'    event is computed as the `x`-th day _from the end_ of the year.
+#'
+#' @name event-yday
+NULL
+
+#' @rdname event-yday
 #' @export
 on_day <- function(x, start = TRUE) {
   on_yday(x, start)
 }
 
+#' @rdname event-yday
 #' @export
 on_yday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
@@ -45,6 +87,41 @@ days_in_year <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' Events related to days of the quarter
+#'
+#' @description
+#'
+#' - `on_qday()`: Is the date on the `x`-th day of the quarter?
+#'
+#' - `before_qday()`: Is the date before the `x`-th day of the quarter?
+#'
+#' - `after_qday()`: Is the date after the `x`-th day of the quarter?
+#'
+#' - `between_qdays()`: Is the date between the `x`-th and `y`-th days of
+#'   the quarter?
+#'
+#' @param x `[integer(1)]`
+#'
+#'    A day of the quarter to mark as an event. For `on_qday()`, this is
+#'    also allowed to be a vector.
+#'
+#' @param y `[integer(1)]`
+#'
+#'    A day of the quarter to mark as an event.
+#'
+#' @param inclusive `[logical(1)]`
+#'
+#'    Should `x` count as an event?
+#'
+#' @param start `[logical(1)]`
+#'
+#'    Should counting start from the beginning of the quarter? If `FALSE`, the
+#'    event is computed as the `x`-th day _from the end_ of the quarter.
+#'
+#' @name event-qday
+NULL
+
+#' @rdname event-qday
 #' @export
 on_qday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
@@ -86,6 +163,41 @@ days_in_quarter <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' Events related to days of the month
+#'
+#' @description
+#'
+#' - `on_mday()`: Is the date on the `x`-th day of the month?
+#'
+#' - `before_mday()`: Is the date before the `x`-th day of the month?
+#'
+#' - `after_mday()`: Is the date after the `x`-th day of the month?
+#'
+#' - `between_mdays()`: Is the date between the `x`-th and `y`-th days of
+#'   the month?
+#'
+#' @param x `[integer(1)]`
+#'
+#'    A day of the month to mark as an event. For `on_mday()`, this is
+#'    also allowed to be a vector.
+#'
+#' @param y `[integer(1)]`
+#'
+#'    A day of the month to mark as an event.
+#'
+#' @param inclusive `[logical(1)]`
+#'
+#'    Should `x` count as an event?
+#'
+#' @param start `[logical(1)]`
+#'
+#'    Should counting start from the beginning of the month? If `FALSE`, the
+#'    event is computed as the `x`-th day _from the end_ of the month.
+#'
+#' @name event-mday
+NULL
+
+#' @rdname event-mday
 #' @export
 on_mday <- function(x, start = TRUE) {
   x <- vec_cast(x, integer())
@@ -127,6 +239,43 @@ days_in_month2 <- function(x) {
 
 # ------------------------------------------------------------------------------
 
+#' Events related to days of the week
+#'
+#' @description
+#'
+#' - `on_wday()`: Is the date on the `x`-th day of the week?
+#'
+#' - `before_wday()`: Is the date before the `x`-th day of the week?
+#'
+#' - `after_wday()`: Is the date after the `x`-th day of the week?
+#'
+#' - `between_wdays()`: Is the date between the `x`-th and `y`-th days of
+#'   the week?
+#'
+#' @param x `[integer(1) / character(1)]`
+#'
+#'    A day of the week to mark as an event. For `on_wday()`, this is
+#'    also allowed to be a vector. This is also allowed to be a full weekday
+#'    string like `"Tuesday"`, or an abbreviation like `"Tues"`.
+#'
+#' @param y `[integer(1) / character(1)]`
+#'
+#'    A day of the week to mark as an event. This is also allowed to be a full
+#'    weekday string like `"Tuesday"`, or an abbreviation like `"Tues"`.
+#'
+#' @param inclusive `[logical(1)]`
+#'
+#'    Should `x` count as an event?
+#'
+#' @param start `[logical(1)]`
+#'
+#'    Should counting start from the beginning of the week? If `FALSE`, the
+#'    event is computed as the `x`-th day _from the end_ of the week.
+#'
+#' @name event-wday
+NULL
+
+#' @rdname event-wday
 #' @export
 on_wday <- function(x, start = TRUE) {
   x <- wday_normalize(x)

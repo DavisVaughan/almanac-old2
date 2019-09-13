@@ -1,3 +1,4 @@
+#' @rdname event-year
 #' @export
 between_years <- function(x, y) {
   x <- cast_scalar_integer(x)
@@ -22,6 +23,7 @@ between_years <- function(x, y) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-year
 #' @export
 between_isoyears <- function(x, y) {
   x <- cast_scalar_integer(x)
@@ -46,6 +48,7 @@ between_isoyears <- function(x, y) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-year
 #' @export
 between_epiyears <- function(x, y) {
   x <- cast_scalar_integer(x)

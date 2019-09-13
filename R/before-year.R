@@ -1,3 +1,4 @@
+#' @rdname event-year
 #' @export
 before_year <- function(x, inclusive = FALSE) {
   x <- cast_scalar_integer(x)
@@ -17,6 +18,7 @@ before_year <- function(x, inclusive = FALSE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-year
 #' @export
 before_isoyear <- function(x, inclusive = FALSE) {
   x <- cast_scalar_integer(x)
@@ -41,6 +43,7 @@ before_isoyear <- function(x, inclusive = FALSE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-year
 #' @export
 before_epiyear <- function(x, inclusive = FALSE) {
   x <- cast_scalar_integer(x)

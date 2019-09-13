@@ -1,3 +1,4 @@
+#' @rdname event-quarter
 #' @export
 after_quarter <- function(x, inclusive = FALSE) {
   x <- cast_scalar_integer(x)

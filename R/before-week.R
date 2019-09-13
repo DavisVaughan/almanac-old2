@@ -1,8 +1,10 @@
+#' @rdname event-yweek
 #' @export
 before_week <- function(x, inclusive = FALSE, start = TRUE) {
   before_yweek(x, inclusive, start)
 }
 
+#' @rdname event-yweek
 #' @export
 before_yweek <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -37,6 +39,7 @@ before_yweek <- function(x, inclusive = FALSE, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-qweek
 #' @export
 before_qweek <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)
@@ -67,6 +70,7 @@ before_qweek <- function(x, inclusive = FALSE, start = TRUE) {
 
 # ------------------------------------------------------------------------------
 
+#' @rdname event-mweek
 #' @export
 before_mweek <- function(x, inclusive = FALSE, start = TRUE) {
   x <- cast_scalar_integer(x)

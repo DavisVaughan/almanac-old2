@@ -11,10 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - How to do "5th tuesday or thursday of the month"?
   - Figure out what to do with `on_count` and `on_repeat`
-- Does `on_wday()` really need `start`?
+- Does `on_wday()` really need `start`? (NO IT DOESNT. There are always 7 days in a week. The 6th day of the week is always the same as the -2 day. Also, it would never make sense to do Sunday + start=FALSE, as that would look at Saturday?)
 - Easter Sunday rules
 - Better support for lubridate `week_start`
-- Supply helpers for adjustment rules
 
 ## On functions
 

@@ -1,3 +1,4 @@
+#' @rdname event-quarter
 #' @export
 between_quarters <- function(x, y) {
   x <- cast_scalar_integer(x)
