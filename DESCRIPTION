@@ -15,6 +15,7 @@ LazyData: true
 URL: https://github.com/DavisVaughan/almanac
 BugReports: https://github.com/DavisVaughan/almanac/issues
 Imports: 
+    glue,
     vctrs,
     rlang,
     lubridate
