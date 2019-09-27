@@ -119,7 +119,7 @@ adj_period_factory <- function(period) {
     while(length(problem_pos) != 0L) {
       # Apply adjustment
       problems <- x[problem_pos]
-      adjusted <- x + period
+      adjusted <- problems + period
 
       # Overwrite existing problems (use `vec_slice<-` for type/size stability)
       vec_slice(x, problem_pos) <- adjusted
